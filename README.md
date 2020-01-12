@@ -4,8 +4,8 @@ This repository is part of our internship programme. For more information about 
 ## Objectives
 Stats4SD hosts a large collection of resources to support our project partners around the world (https://stats4sd.org/resources). We would like to develop a lightweight application that will periodically (e.g. weekly/monthly) query the backend database and analytics endpoints, and generate a report of information including:
 
-- Resources added
-- Most viewed resources
+- Resources and collections added
+- Most viewed resources and collections
 - Countries of use
 
 The information should be presented as a single web page and be exportable for use in a mailing list.
