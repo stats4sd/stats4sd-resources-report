@@ -1,8 +1,8 @@
 <template>
   <div class="container-fluid">
     <Toolbar />
-    <Main />
     <Sidebar />
+    <Main />
   </div>
 </template>
 
