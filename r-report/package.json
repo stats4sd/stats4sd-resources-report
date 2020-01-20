@@ -1,6 +1,9 @@
 {
   "name": "r-report",
   "version": "0.1.0",
+  "author": "Statistics for Sustainable Development",
+  "description": "Application showing a report of stats4sd's resources and collections",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
