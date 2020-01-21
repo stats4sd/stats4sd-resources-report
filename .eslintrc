@@ -1,5 +1,15 @@
 {
-  "extends": ["plugin:prettier/recommended"],
+  "root": true,
+    "env": {
+        "node": true
+    },
+    "extends": [
+        "plugin:vue/recommended",
+        "eslint:recommended",
+        "prettier/vue",
+        "plugin:prettier/recommended"
+    ],
+  
   "plugins": ["prettier"],
 
   "rules": {
@@ -9,5 +19,6 @@
     "sourceType": "module",
     "parser": "babel-eslint"
 }
+
 
 }
