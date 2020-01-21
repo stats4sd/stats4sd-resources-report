@@ -16,6 +16,14 @@ export default {
         clientid:
           '936455127872-vak7t470ulpqab9a355vbbcqjco9tmb9.apps.googleusercontent.com'
       });
+
+      const viewSelector = new window.gapi.analytics.ViewSelector({
+        container: 'view-selector-container'
+      });
+
+      viewSelector.execute();
+
+      
     });
   }
 };
