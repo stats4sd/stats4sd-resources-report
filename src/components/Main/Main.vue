@@ -1,16 +1,19 @@
 <template>
-<div>
-<div class="col-md-9 ml-sm-auto col-lg-10 px-4">Main Section
-    {{msg}}
+  <div>
+    <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      Main Section <br />
+      {{ msg }}
+      <GoogleAnalytics />
+    </div>
   </div>
-</div>
-
 </template>
 
 <script>
+/* eslint-disable */
+import GoogleAnalytics from '../GoogleAnalytics/GoogleAnalytics'
 export default {
   name: "Main",
-
+  components: {GoogleAnalytics},
 data(){
   return{
     msg:'Hello',
