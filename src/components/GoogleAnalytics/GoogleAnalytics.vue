@@ -23,7 +23,25 @@ export default {
 
       viewSelector.execute();
 
-      
+      const dataChart = new window.gapi.analytics.googleCharts.DataChart({
+        query: {
+          metrics: 'ga:sessions',
+          dimensions: 'ga:date',
+          'start-date': '30daysAgo',
+          'end-date': 'yesterday'
+        },
+        chart: {
+          container: 'chart-container',
+          type: 'LINE',
+          options: {
+            width: '100%'
+          }
+        }
+      });
+
+      viewSelector.on('change', ids => {
+        dataChart.set({ query: { ids: ids } }).execute();
+      });
     });
   }
 };
