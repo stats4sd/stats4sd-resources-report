@@ -1,9 +1,24 @@
 <template>
   <div>
     Google Analytics
-    <div id="embed-api-auth-container"></div>
-    <div id="chart-container"></div>
     <div id="view-selector-container"></div>
+
+    <div id="embed-api-auth-container"></div>
+    <div>
+      <header class="Titles">
+        <h3 class="Titles-main">Sessions</h3>
+        <div class="Titles-sub">Last 120 days</div>
+      </header>
+      <div id="chart-container"></div>
+    </div>
+
+    <div>
+      <header class="Titles">
+        <h3 class="Titles-main">Top Countries by Sessions</h3>
+        <div class="Titles-sub">Last 120 days</div>
+      </header>
+      <div id="chart-container-2"></div>
+    </div>
   </div>
 </template>
 <script>
@@ -27,7 +42,7 @@ export default {
         query: {
           metrics: 'ga:sessions',
           dimensions: 'ga:date',
-          'start-date': '30daysAgo',
+          'start-date': '150daysAgo',
           'end-date': 'yesterday'
         },
         chart: {
@@ -42,8 +57,48 @@ export default {
       viewSelector.on('change', ids => {
         dataChart.set({ query: { ids: ids } }).execute();
       });
+
+      //Chart 2 for countries
+      const dataChart2 = new window.gapi.analytics.googleCharts.DataChart({
+        query: {
+          metrics: 'ga:sessions',
+          dimensions: 'ga:country',
+          'start-date': '150daysAgo',
+          'end-date': 'yesterday',
+          'max-results': 6,
+          sort: '-ga:sessions'
+        },
+        chart: {
+          container: 'chart-container-2',
+          type: 'PIE',
+          options: {
+            width: '100%',
+            pieHole: 4 / 9
+          }
+        }
+      });
+
+      viewSelector.on('change', ids => {
+        dataChart2.set({ query: { ids: ids } }).execute();
+      });
     });
   }
 };
 </script>
-<style scoped></style>
+<style scoped>
+#view-selector-container {
+  display: none;
+}
+.Titles {
+  font-weight: 300;
+  line-height: 1.2;
+  margin: 0 0 1.5em;
+}
+.Titles-main {
+  font-size: 1.4em;
+}
+.Titles-sub {
+  opacity: 0.6;
+  margin-top: 0.2em;
+}
+</style>
