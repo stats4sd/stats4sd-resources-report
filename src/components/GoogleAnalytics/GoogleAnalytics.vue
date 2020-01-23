@@ -1,6 +1,5 @@
 <template>
   <div>
-    Google Analytics
     <div id="view-selector-container"></div>
 
     <div id="embed-api-auth-container"></div>
@@ -18,6 +17,13 @@
         <div class="Titles-sub">Last 120 days</div>
       </header>
       <div id="chart-container-2"></div>
+    </div>
+    <div>
+      <header class="Titles">
+        <h3 class="Titles-main">Top Viewed Pages</h3>
+        <div class="Titles-sub">Last 120 days</div>
+      </header>
+      <div id="chart-container-3"></div>
     </div>
   </div>
 </template>
@@ -80,6 +86,32 @@ export default {
 
       viewSelector.on('change', ids => {
         dataChart2.set({ query: { ids: ids } }).execute();
+      });
+
+      //chart 3 for most viewed pages/resources
+      const dataChart3 = new window.gapi.analytics.googleCharts.DataChart({
+        query: {
+          ids: 'ga:201510174', // <-- Replace with the ids value for your view.
+          'start-date': '120daysAgo',
+          'end-date': 'yesterday',
+          metrics: 'ga:pageviews',
+          dimensions: 'ga:pagePathLevel1',
+          sort: '-ga:pageviews',
+          filters: 'ga:pagePathLevel1!=/',
+          'max-results': 7
+        },
+        chart: {
+          container: 'chart-container-3',
+          type: 'PIE',
+          options: {
+            width: '100%',
+            pieHole: 4 / 9
+          }
+        }
+      });
+      //dataChart3.execute();
+      viewSelector.on('change', ids => {
+        dataChart3.set({ query: { ids: ids } }).execute();
       });
     });
   }
