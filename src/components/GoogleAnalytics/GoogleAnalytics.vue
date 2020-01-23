@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button class="btn-primary" @click="printReport">Export</button>
+    <button class="btn-primary" @click="printReport">Export Report</button>
     <div id="report">
       <div id="view-selector-container"></div>
 
@@ -36,91 +36,94 @@ import jsPDF from 'jspdf';
 export default {
   name: 'GoogleAnalytics',
   mounted: function() {
-    window.gapi.analytics.ready(() => {
-      window.gapi.analytics.auth.authorize({
-        container: 'embed-api-auth-container',
-        clientid:
-          '936455127872-vak7t470ulpqab9a355vbbcqjco9tmb9.apps.googleusercontent.com'
-      });
-
-      const viewSelector = new window.gapi.analytics.ViewSelector({
-        container: 'view-selector-container'
-      });
-
-      viewSelector.execute();
-
-      const dataChart = new window.gapi.analytics.googleCharts.DataChart({
-        query: {
-          metrics: 'ga:sessions',
-          dimensions: 'ga:date',
-          'start-date': '150daysAgo',
-          'end-date': 'yesterday'
-        },
-        chart: {
-          container: 'chart-container',
-          type: 'LINE',
-          options: {
-            width: '100%'
-          }
-        }
-      });
-
-      viewSelector.on('change', ids => {
-        dataChart.set({ query: { ids: ids } }).execute();
-      });
-
-      //Chart 2 for countries
-      const dataChart2 = new window.gapi.analytics.googleCharts.DataChart({
-        query: {
-          metrics: 'ga:sessions',
-          dimensions: 'ga:country',
-          'start-date': '150daysAgo',
-          'end-date': 'yesterday',
-          'max-results': 6,
-          sort: '-ga:sessions'
-        },
-        chart: {
-          container: 'chart-container-2',
-          type: 'PIE',
-          options: {
-            width: '100%',
-            pieHole: 4 / 9
-          }
-        }
-      });
-
-      viewSelector.on('change', ids => {
-        dataChart2.set({ query: { ids: ids } }).execute();
-      });
-
-      //chart 3 for most viewed pages/resources
-      const dataChart3 = new window.gapi.analytics.googleCharts.DataChart({
-        query: {
-          ids: 'ga:201510174', // <-- Replace with the ids value for your view.
-          'start-date': '120daysAgo',
-          'end-date': 'yesterday',
-          metrics: 'ga:pageviews',
-          dimensions: 'ga:pagePathLevel1',
-          sort: '-ga:pageviews',
-          filters: 'ga:pagePathLevel1!=/',
-          'max-results': 7
-        },
-        chart: {
-          container: 'chart-container-3',
-          type: 'PIE',
-          options: {
-            width: '100%',
-            pieHole: 4 / 9
-          }
-        }
-      });
-      //dataChart3.execute();
-      viewSelector.on('change', ids => {
-        dataChart3.set({ query: { ids: ids } }).execute();
-      });
-    });
+    this.loadData();
   },
   methods: {
+    loadData() {
+      window.gapi.analytics.ready(() => {
+        window.gapi.analytics.auth.authorize({
+          container: 'embed-api-auth-container',
+          clientid:
+            '936455127872-vak7t470ulpqab9a355vbbcqjco9tmb9.apps.googleusercontent.com'
+        });
+
+        const viewSelector = new window.gapi.analytics.ViewSelector({
+          container: 'view-selector-container'
+        });
+
+        viewSelector.execute();
+
+        const dataChart = new window.gapi.analytics.googleCharts.DataChart({
+          query: {
+            metrics: 'ga:sessions',
+            dimensions: 'ga:date',
+            'start-date': '150daysAgo',
+            'end-date': 'yesterday'
+          },
+          chart: {
+            container: 'chart-container',
+            type: 'LINE',
+            options: {
+              width: '100%'
+            }
+          }
+        });
+
+        viewSelector.on('change', ids => {
+          dataChart.set({ query: { ids: ids } }).execute();
+        });
+
+        //Chart 2 for countries
+        const dataChart2 = new window.gapi.analytics.googleCharts.DataChart({
+          query: {
+            metrics: 'ga:sessions',
+            dimensions: 'ga:country',
+            'start-date': '150daysAgo',
+            'end-date': 'yesterday',
+            'max-results': 6,
+            sort: '-ga:sessions'
+          },
+          chart: {
+            container: 'chart-container-2',
+            type: 'PIE',
+            options: {
+              width: '100%',
+              pieHole: 4 / 9
+            }
+          }
+        });
+
+        viewSelector.on('change', ids => {
+          dataChart2.set({ query: { ids: ids } }).execute();
+        });
+
+        //chart 3 for most viewed pages/resources
+        const dataChart3 = new window.gapi.analytics.googleCharts.DataChart({
+          query: {
+            ids: 'ga:201510174', // <-- Replace with the ids value for your view.
+            'start-date': '120daysAgo',
+            'end-date': 'yesterday',
+            metrics: 'ga:pageviews',
+            dimensions: 'ga:pagePathLevel1',
+            sort: '-ga:pageviews',
+            filters: 'ga:pagePathLevel1!=/',
+            'max-results': 7
+          },
+          chart: {
+            container: 'chart-container-3',
+            type: 'PIE',
+            options: {
+              width: '100%',
+              pieHole: 4 / 9
+            }
+          }
+        });
+        //dataChart3.execute();
+        viewSelector.on('change', ids => {
+          dataChart3.set({ query: { ids: ids } }).execute();
+        });
+      });
+    },
     printReport() {
       const input = document.getElementById('report');
       html2canvas(input).then(canvas => {
