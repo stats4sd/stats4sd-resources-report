@@ -35,8 +35,17 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 export default {
   name: 'GoogleAnalytics',
+
   mounted: function() {
     this.loadData();
+
+    //Periodcally make a request
+    /*setInterval(
+      function() {
+        this.loadData();
+      }.bind(this),
+      10000
+    );*/
   },
   methods: {
     loadData() {
