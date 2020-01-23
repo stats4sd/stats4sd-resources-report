@@ -13,6 +13,8 @@
   "dependencies": {
     "axios": "^0.19.1",
     "core-js": "^3.4.4",
+    "html2canvas": "^1.0.0-rc.5",
+    "jspdf": "^1.5.3",
     "vue": "^2.6.10"
   },
   "devDependencies": {
