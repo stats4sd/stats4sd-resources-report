@@ -13,8 +13,7 @@
   "plugins": ["prettier"],
 
   "rules": {
-    "prettier/prettier": "error",
-    "no-console":"off"
+    "prettier/prettier": "error"
   },
   "parserOptions": {
     "sourceType": "module",

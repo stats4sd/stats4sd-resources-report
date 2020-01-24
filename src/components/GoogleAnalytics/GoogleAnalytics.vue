@@ -92,6 +92,7 @@ export default {
             'max-results': 6,
             sort: '-ga:sessions'
           },
+
           chart: {
             container: 'chart-container-2',
             type: 'PIE',
@@ -109,7 +110,7 @@ export default {
         //chart 3 for most viewed pages/resources
         const dataChart3 = new window.gapi.analytics.googleCharts.DataChart({
           query: {
-            ids: 'ga:201510174', // <-- Replace with the ids value for your view.
+            ids: 'ga:201510174',
             'start-date': '120daysAgo',
             'end-date': 'yesterday',
             metrics: 'ga:pageviews',
@@ -142,7 +143,6 @@ export default {
         pdf.addImage(imgData, 'JPEG', 0, 0);
         pdf.save('report.pdf');
       });
-      //alert('Print Report');
     }
   }
 };
