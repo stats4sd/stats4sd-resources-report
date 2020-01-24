@@ -78,6 +78,9 @@ export default {
           }
         });
 
+
+
+
         viewSelector.on('change', ids => {
           dataChart.set({ query: { ids: ids } }).execute();
         });
