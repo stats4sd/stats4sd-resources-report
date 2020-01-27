@@ -67,7 +67,7 @@ export default {
           query: {
             metrics: 'ga:sessions',
             dimensions: 'ga:date',
-            'start-date': '150daysAgo',
+            'start-date': '30daysAgo',
             'end-date': 'yesterday'
           },
           chart: {
@@ -88,7 +88,7 @@ export default {
           query: {
             metrics: 'ga:sessions',
             dimensions: 'ga:country',
-            'start-date': '150daysAgo',
+            'start-date': '30daysAgo',
             'end-date': 'yesterday',
             'max-results': 6,
             sort: '-ga:sessions'
@@ -111,14 +111,14 @@ export default {
         //chart 3 for most viewed pages/resources
         const dataChart3 = new window.gapi.analytics.googleCharts.DataChart({
           query: {
-            ids: 'ga:201510174',
-            'start-date': '120daysAgo',
+            ids: 'ga:210129635',
+            'start-date': '30daysAgo',
             'end-date': 'yesterday',
             metrics: 'ga:pageviews',
             dimensions: 'ga:pagePathLevel1',
             sort: '-ga:pageviews',
             filters: 'ga:pagePathLevel1!=/',
-            'max-results': 7
+            'max-results': 25
           },
           chart: {
             container: 'chart-container-3',
@@ -149,9 +149,9 @@ export default {
 };
 </script>
 <style scoped>
-#view-selector-container {
+/*#view-selector-container {
   display: none;
-}
+}*/
 .Titles {
   font-weight: 300;
   line-height: 1.2;
