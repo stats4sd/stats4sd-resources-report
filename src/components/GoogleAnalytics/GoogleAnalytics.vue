@@ -47,6 +47,7 @@ export default {
       10000
     );*/
   },
+
   methods: {
     loadData() {
       window.gapi.analytics.ready(() => {
@@ -77,9 +78,6 @@ export default {
             }
           }
         });
-
-
-
 
         viewSelector.on('change', ids => {
           dataChart.set({ query: { ids: ids } }).execute();

@@ -5,24 +5,14 @@
 </template>
 
 <script>
-/* eslint-disable */
-import Layout from "./components/Layout/Layout";
-import axios from 'axios'
+import Layout from './components/Layout/Layout';
 
 export default {
-  name: "app",
+  name: 'App',
   components: {
     Layout
-  },
-  created(){
-    axios.get("https://jsonplaceholder.typicode.com/todos/1")
-    .then(response => console.log("Data: ",response.data))
-    .catch(err => console.log("Error:", err))
-
-    
   }
 };
 </script>
 
-<style>
-</style>
+<style></style>
