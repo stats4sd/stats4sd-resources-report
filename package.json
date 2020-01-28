@@ -9,13 +9,16 @@
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "start": "node server.js"
   },
   "dependencies": {
     "axios": "^0.19.1",
     "core-js": "^3.4.4",
+    "express": "^4.17.1",
     "html2canvas": "^1.0.0-rc.5",
     "jspdf": "^1.5.3",
+    "serve-static": "^1.14.1",
     "vue": "^2.6.10"
   },
   "devDependencies": {
