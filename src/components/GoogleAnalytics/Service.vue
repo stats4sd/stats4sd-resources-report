@@ -1,7 +1,7 @@
 <template>
   <div>
     Service Accounts
-    {{ access_token }}
+    {{ accessToken }}
     <div id="chart-1-container"></div>
     <div id="chart-2-container"></div>
   </div>
@@ -13,7 +13,7 @@ export default {
   name: 'Service',
   data: function() {
     return {
-      access_token: null
+      accessToken: null
     };
   },
   created() {
@@ -24,7 +24,7 @@ export default {
 
       const response = await client.getAccessToken();
       console.log(response.token);
-      this.access_token = response.token;
+      this.accessToken = response.token;
     };
     getToken();
   },
