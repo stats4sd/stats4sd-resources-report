@@ -16,26 +16,27 @@ export default {
       accessToken: null
     };
   },
-  created() {
-    const getToken = async () => {
-      const client = new JWT(keys.client_email, null, keys.private_key, [
-        'https://www.googleapis.com/auth/analytics.readonly'
-      ]);
 
-      const response = await client.getAccessToken();
-      console.log(response.token);
-      this.accessToken = response.token;
-    };
-    getToken();
-  },
   mounted: function() {
-    window.gapi.analytics.ready(function() {
+    window.gapi.analytics.ready(async function() {
+      const getToken = async () => {
+        const client = new JWT(keys.client_email, null, keys.private_key, [
+          'https://www.googleapis.com/auth/analytics.readonly'
+        ]);
+
+        const response = await client.getAccessToken();
+        console.log(response.token);
+        this.accessToken = response.token;
+      };
+      await getToken();
+
+      console.log('Access token: ', this.accessToken);
       /**
        * Authorize the user with an access token obtained server side.
        */
       window.gapi.analytics.auth.authorize({
         serverAuth: {
-          access_token: ''
+          access_token: this.accessToken
         }
       });
 
