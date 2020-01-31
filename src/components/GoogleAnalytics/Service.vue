@@ -1,30 +1,35 @@
 <template>
   <div>
     Service Accounts
-    <div>
-      <header class="Titles">
-        <h3 class="Titles-main">Sessions Vs Users</h3>
-        <div class="Titles-sub">Last 60 days</div>
-      </header>
-      <div id="chart-1-container"></div>
-    </div>
-    <div>
-      <header class="Titles">
-        <h3 class="Titles-main">Top Countries by Sessions</h3>
-        <div class="Titles-sub">Last 60 days</div>
-      </header>
-      <div id="chart-3-container"></div>
-    </div>
-    <div>
-      <header class="Titles">
-        <h3 class="Titles-main">Top Visted Pages</h3>
-        <div class="Titles-sub">Last 60 days</div>
-      </header>
-      <div id="chart-2-container"></div>
+    <button class="btn-primary" @click="printReport">Export Report</button>
+    <div id="report">
+      <div>
+        <header class="Titles">
+          <h3 class="Titles-main">Sessions Vs Users</h3>
+          <div class="Titles-sub">Last 60 days</div>
+        </header>
+        <div id="chart-1-container"></div>
+      </div>
+      <div>
+        <header class="Titles">
+          <h3 class="Titles-main">Top Countries by Sessions</h3>
+          <div class="Titles-sub">Last 60 days</div>
+        </header>
+        <div id="chart-3-container"></div>
+      </div>
+      <div>
+        <header class="Titles">
+          <h3 class="Titles-main">Top Visted Pages</h3>
+          <div class="Titles-sub">Last 60 days</div>
+        </header>
+        <div id="chart-2-container"></div>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 const { JWT } = require('google-auth-library');
 //import keys from '../../../stats4s';
 export default {
@@ -34,7 +39,6 @@ export default {
       accessToken: null
     };
   },
-
   mounted: function() {
     window.gapi.analytics.ready(async function() {
       const getToken = async () => {
@@ -133,6 +137,18 @@ export default {
       });
       dataChart3.execute();
     });
+  },
+  methods: {
+    printReport() {
+      const input = document.getElementById('report');
+      html2canvas(input).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+
+        const pdf = new jsPDF();
+        pdf.addImage(imgData, 'JPEG', 0, 0);
+        pdf.save('report.pdf');
+      });
+    }
   }
 };
 </script>
