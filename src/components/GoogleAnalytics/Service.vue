@@ -1,9 +1,27 @@
 <template>
   <div>
     Service Accounts
-    {{ accessToken }}
-    <div id="chart-1-container"></div>
-    <div id="chart-2-container"></div>
+    <div>
+      <header class="Titles">
+        <h3 class="Titles-main">Sessions Vs Users</h3>
+        <div class="Titles-sub">Last 60 days</div>
+      </header>
+      <div id="chart-1-container"></div>
+    </div>
+    <div>
+      <header class="Titles">
+        <h3 class="Titles-main">Top Countries by Sessions</h3>
+        <div class="Titles-sub">Last 60 days</div>
+      </header>
+      <div id="chart-3-container"></div>
+    </div>
+    <div>
+      <header class="Titles">
+        <h3 class="Titles-main">Top Visted Pages</h3>
+        <div class="Titles-sub">Last 60 days</div>
+      </header>
+      <div id="chart-2-container"></div>
+    </div>
   </div>
 </template>
 <script>
@@ -46,8 +64,8 @@ export default {
        */
       const dataChart1 = new window.gapi.analytics.googleCharts.DataChart({
         query: {
-          ids: 'ga:201510174', // <-- Replace with the ids value for your view.
-          'start-date': '120daysAgo',
+          ids: 'ga:163893888', // <-- Replace with the ids value for your view.
+          'start-date': '60daysAgo',
           'end-date': 'yesterday',
           metrics: 'ga:sessions,ga:users',
           dimensions: 'ga:date'
@@ -69,8 +87,8 @@ export default {
        */
       const dataChart2 = new window.gapi.analytics.googleCharts.DataChart({
         query: {
-          ids: 'ga:201510174', // <-- Replace with the ids value for your view.
-          'start-date': '120daysAgo',
+          ids: 'ga:163893888', // <-- Replace with the ids value for your view.
+          'start-date': '60daysAgo',
           'end-date': 'yesterday',
           metrics: 'ga:pageviews',
           dimensions: 'ga:pagePathLevel1',
@@ -88,8 +106,48 @@ export default {
         }
       });
       dataChart2.execute();
+
+      //Chart 3 for Users Vs Countries
+
+      const dataChart3 = new window.gapi.analytics.googleCharts.DataChart({
+        query: {
+          ids: 'ga:163893888', // <-- Replace with the ids value for your view.
+          'start-date': '60daysAgo',
+          'end-date': 'yesterday',
+          metrics: 'ga:sessions',
+          dimensions: 'ga:country',
+          sort: '-ga:sessions'
+        },
+        chart: {
+          container: 'chart-3-container',
+          type: 'PIE',
+          options: {
+            width: '100%',
+            pieHole: 4 / 9
+          }
+        }
+      });
+      dataChart3.execute();
     });
   }
 };
 </script>
-<style scoped></style>
+<style scoped>
+.Titles {
+  font-weight: 300;
+  line-height: 1.2;
+  margin: 0 0 1.5em;
+}
+.Titles-main {
+  font-size: 1.4em;
+}
+.Titles-sub {
+  opacity: 0.6;
+  margin-top: 0.2em;
+}
+#report {
+  background-color: #f5f5f5;
+  width: 210mm;
+  min-height: 297mm;
+}
+</style>
