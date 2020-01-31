@@ -2,3 +2,4 @@ node_modules
 dist
 stats4s.js
 service.js
+.env

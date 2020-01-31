@@ -26,7 +26,7 @@
 </template>
 <script>
 const { JWT } = require('google-auth-library');
-import keys from '../../../stats4s';
+//import keys from '../../../stats4s';
 export default {
   name: 'Service',
   data: function() {
@@ -38,9 +38,12 @@ export default {
   mounted: function() {
     window.gapi.analytics.ready(async function() {
       const getToken = async () => {
-        const client = new JWT(keys.client_email, null, keys.private_key, [
-          'https://www.googleapis.com/auth/analytics.readonly'
-        ]);
+        const client = new JWT(
+          process.env.VUE_APP_client_email,
+          null,
+          process.env.VUE_APP_private_key,
+          ['https://www.googleapis.com/auth/analytics.readonly']
+        );
 
         const response = await client.getAccessToken();
         console.log(response.token);
@@ -49,6 +52,7 @@ export default {
       await getToken();
 
       console.log('Access token: ', this.accessToken);
+      console.log('Env: ', process.env.VUE_APP_TITLE);
       /**
        * Authorize the user with an access token obtained server side.
        */
@@ -107,7 +111,7 @@ export default {
       });
       dataChart2.execute();
 
-      //Chart 3 for Users Vs Countries
+      //Chart 3 for User Sessions Vs Countries
 
       const dataChart3 = new window.gapi.analytics.googleCharts.DataChart({
         query: {
