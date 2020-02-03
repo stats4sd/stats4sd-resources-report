@@ -30,7 +30,6 @@
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 const { JWT } = require('google-auth-library');
-//import keys from '../../../stats4s';
 export default {
   name: 'GoogleAnalyticsService',
   data: function() {
@@ -39,7 +38,7 @@ export default {
     };
   },
   mounted: function() {
-    window.gapi.analytics.ready(async function() {
+    window.gapi.analytics.ready(async () => {
       const getToken = async () => {
         const client = new JWT(
           process.env.VUE_APP_client_email,
@@ -138,7 +137,7 @@ export default {
     });
   },
   methods: {
-    printReport() {
+    printReport: () => {
       const input = document.getElementById('report');
       html2canvas(input).then(canvas => {
         const imgData = canvas.toDataURL('image/png');
