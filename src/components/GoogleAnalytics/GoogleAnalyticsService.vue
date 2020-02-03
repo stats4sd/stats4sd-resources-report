@@ -1,7 +1,6 @@
 <template>
   <div>
-    Service Accounts
-    <button class="btn-primary" @click="printReport">Export Report</button>
+    <button class="btn-primary" @click="printReport">Download Report</button>
     <div id="report">
       <div>
         <header class="Titles">
@@ -33,7 +32,7 @@ import jsPDF from 'jspdf';
 const { JWT } = require('google-auth-library');
 //import keys from '../../../stats4s';
 export default {
-  name: 'Service',
+  name: 'GoogleAnalyticsService',
   data: function() {
     return {
       accessToken: null
