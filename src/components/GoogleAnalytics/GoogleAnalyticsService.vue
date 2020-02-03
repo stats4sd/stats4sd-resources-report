@@ -62,7 +62,7 @@ export default {
       });
 
       /**
-       * Creates a new DataChart instance showing sessions over the past 30 days.
+       * Creates a new DataChart instance showing sessions over the past 60 days.
        * It will be rendered inside an element with the id "chart-1-container".
        */
       const dataChart1 = new window.gapi.analytics.googleCharts.DataChart({
@@ -84,9 +84,8 @@ export default {
       dataChart1.execute();
 
       /**
-       * Creates a new DataChart instance showing top 5 most popular demos/tools
-       * amongst returning users only.
-       * It will be rendered inside an element with the id "chart-3-container".
+       * Creates a new DataChart instance showing top most popular viewed pages.
+       * It will be rendered inside an element with the id "chart-2-container".
        */
       const dataChart2 = new window.gapi.analytics.googleCharts.DataChart({
         query: {
