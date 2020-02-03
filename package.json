@@ -12,18 +12,11 @@
     "lint:fix": "npm run lint -- --fix",
     "start": "node server.js"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "**/*.{js,jsx,css}": "npm run lint:fix"
-  },
   "dependencies": {
     "axios": "^0.19.1",
     "core-js": "^3.4.4",
     "express": "^4.17.1",
+    "google-auth-library": "^5.9.2",
     "html2canvas": "^1.0.0-rc.5",
     "jspdf": "^1.5.3",
     "serve-static": "^1.14.1",

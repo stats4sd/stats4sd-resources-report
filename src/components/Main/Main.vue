@@ -1,36 +1,15 @@
 <template>
   <div class="col-md-9 ml-sm-auto col-lg-10 px-4">
-    <GoogleAnalytics />
+    <GoogleAnalyticsService />
   </div>
 </template>
 
 <script>
-import GoogleAnalytics from '../GoogleAnalytics/GoogleAnalytics';
+import GoogleAnalyticsService from '../GoogleAnalytics/GoogleAnalyticsService';
+//import GoogleAnalytics from '../GoogleAnalytics/GoogleAnalytics';
 export default {
   name: 'Main',
-  components: { GoogleAnalytics },
-  data() {
-    return {
-      msg: 'Hello',
-      todos: [
-        {
-          id: 1,
-          title: 'Todo One',
-          completed: false
-        },
-        {
-          id: 2,
-          title: 'Todo two',
-          completed: true
-        },
-        {
-          id: 3,
-          title: 'Todo three',
-          completed: false
-        }
-      ]
-    };
-  }
+  components: { GoogleAnalyticsService }
 };
 </script>
 
