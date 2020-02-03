@@ -39,28 +39,25 @@ export default {
   },
   mounted: function() {
     window.gapi.analytics.ready(async () => {
-      const getToken = async () => {
-        const client = new JWT(
-          process.env.VUE_APP_client_email,
-          null,
-          process.env.VUE_APP_private_key,
-          ['https://www.googleapis.com/auth/analytics.readonly']
-        );
+      const client = new JWT(
+        process.env.VUE_APP_client_email,
+        null,
+        process.env.VUE_APP_private_key,
+        ['https://www.googleapis.com/auth/analytics.readonly']
+      );
 
-        const response = await client.getAccessToken();
-        console.log(response.token);
-        this.accessToken = response.token;
-      };
-      await getToken();
+      const response = await client.getAccessToken();
+      console.log(response.token);
+      const access_token = response.token;
 
-      console.log('Access token: ', this.accessToken);
+      console.log('Access token: ', access_token);
       console.log('Env: ', process.env.VUE_APP_TITLE);
       /**
        * Authorize the user with an access token obtained server side.
        */
       window.gapi.analytics.auth.authorize({
         serverAuth: {
-          access_token: this.accessToken
+          access_token
         }
       });
 
