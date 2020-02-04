@@ -6,7 +6,6 @@
 
 <script>
 import GoogleAnalyticsService from '../GoogleAnalytics/GoogleAnalyticsService';
-//import GoogleAnalytics from '../GoogleAnalytics/GoogleAnalytics';
 export default {
   name: 'Main',
   components: { GoogleAnalyticsService }
