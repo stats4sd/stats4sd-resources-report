@@ -32,11 +32,7 @@ import jsPDF from 'jspdf';
 const { JWT } = require('google-auth-library');
 export default {
   name: 'GoogleAnalyticsService',
-  data: function() {
-    return {
-      accessToken: null
-    };
-  },
+
   mounted: function() {
     window.gapi.analytics.ready(async () => {
       const client = new JWT(
