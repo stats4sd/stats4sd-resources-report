@@ -105,7 +105,10 @@ export default {
       });
       dataChart2.execute();
 
-      //Chart 3 for User Sessions Vs Countries
+      /**
+       * Creates a new DataChart instance showing users vs countries.
+       * It will be rendered inside an element with the id "chart-3-container".
+       */
 
       const dataChart3 = new window.gapi.analytics.googleCharts.DataChart({
         query: {
