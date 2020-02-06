@@ -21,8 +21,18 @@
       </div>
       <div>
         <header class="Titles">
+          <div class="float-right">
+            <select :key="chart2" v-model="chart2" @change="getData">
+              <option disabled value>Please Select One</option>
+              <option>7</option>
+              <option>2</option>
+              <option>60</option>
+              <option>90</option>
+            </select>
+            <span>Selected: {{ chart2 }}</span>
+          </div>
           <h3 class="Titles-main">Top Countries by Sessions</h3>
-          <div class="Titles-sub">Last 60 days</div>
+          <div class="Titles-sub">Last {{ chart2 }} days</div>
         </header>
         <div id="chart-3-container"></div>
       </div>
@@ -44,7 +54,10 @@ export default {
   name: 'GoogleAnalyticsService',
   data: function() {
     return {
-      selected: 60
+      selected: 60,
+      chart1: 60,
+      chart2: 60,
+      chart3: 60
     };
   },
   mounted: function mounted() {
@@ -114,7 +127,7 @@ export default {
         const dataChart2 = new window.gapi.analytics.googleCharts.DataChart({
           query: {
             ids: 'ga:163893888', // <-- Replace with the ids value for your view.
-            'start-date': '60daysAgo',
+            'start-date': `${this.chart2}daysAgo`,
             'end-date': 'yesterday',
             metrics: 'ga:pageviews',
             dimensions: 'ga:pagePathLevel1',
