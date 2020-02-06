@@ -4,8 +4,18 @@
     <div id="report">
       <div>
         <header class="Titles">
+          <div class="float-right">
+            <select :key="selected" v-model="selected" @change="getData">
+              <option disabled value>Please Select One</option>
+              <option>7</option>
+              <option>28</option>
+              <option>60</option>
+              <option>90</option>
+            </select>
+            <span>Selected: {{ selected }}</span>
+          </div>
           <h3 class="Titles-main">Sessions Vs Users</h3>
-          <div class="Titles-sub">Last 60 days</div>
+          <div class="Titles-sub">Last {{ selected }} days</div>
         </header>
         <div id="chart-1-container"></div>
       </div>
@@ -32,104 +42,13 @@ import jsPDF from 'jspdf';
 const { JWT } = require('google-auth-library');
 export default {
   name: 'GoogleAnalyticsService',
-
-  mounted: function() {
-    window.gapi.analytics.ready(async () => {
-      const client = new JWT(
-        process.env.VUE_APP_client_email,
-        null,
-        process.env.VUE_APP_private_key,
-        ['https://www.googleapis.com/auth/analytics.readonly']
-      );
-
-      const response = await client.getAccessToken();
-      console.log(response.token);
-      const access_token = response.token;
-
-      console.log('Access token: ', access_token);
-      console.log('Env: ', process.env.VUE_APP_TITLE);
-      /**
-       * Authorize the user with an access token obtained server side.
-       */
-      window.gapi.analytics.auth.authorize({
-        serverAuth: {
-          access_token
-        }
-      });
-
-      /**
-       * Creates a new DataChart instance showing sessions over the past 60 days.
-       * It will be rendered inside an element with the id "chart-1-container".
-       */
-      const dataChart1 = new window.gapi.analytics.googleCharts.DataChart({
-        query: {
-          ids: 'ga:163893888', // <-- Replace with the ids value for your view.
-          'start-date': '60daysAgo',
-          'end-date': 'yesterday',
-          metrics: 'ga:sessions,ga:users',
-          dimensions: 'ga:date'
-        },
-        chart: {
-          container: 'chart-1-container',
-          type: 'LINE',
-          options: {
-            width: '100%'
-          }
-        }
-      });
-      dataChart1.execute();
-
-      /**
-       * Creates a new DataChart instance showing top most popular viewed pages.
-       * It will be rendered inside an element with the id "chart-2-container".
-       */
-      const dataChart2 = new window.gapi.analytics.googleCharts.DataChart({
-        query: {
-          ids: 'ga:163893888', // <-- Replace with the ids value for your view.
-          'start-date': '60daysAgo',
-          'end-date': 'yesterday',
-          metrics: 'ga:pageviews',
-          dimensions: 'ga:pagePathLevel1',
-          sort: '-ga:pageviews',
-          filters: 'ga:pagePathLevel1!=/',
-          'max-results': 7
-        },
-        chart: {
-          container: 'chart-2-container',
-          type: 'PIE',
-          options: {
-            width: '100%',
-            pieHole: 4 / 9
-          }
-        }
-      });
-      dataChart2.execute();
-
-      /**
-       * Creates a new DataChart instance showing users vs countries.
-       * It will be rendered inside an element with the id "chart-3-container".
-       */
-
-      const dataChart3 = new window.gapi.analytics.googleCharts.DataChart({
-        query: {
-          ids: 'ga:163893888', // <-- Replace with the ids value for your view.
-          'start-date': '60daysAgo',
-          'end-date': 'yesterday',
-          metrics: 'ga:sessions',
-          dimensions: 'ga:country',
-          sort: '-ga:sessions'
-        },
-        chart: {
-          container: 'chart-3-container',
-          type: 'PIE',
-          options: {
-            width: '100%',
-            pieHole: 4 / 9
-          }
-        }
-      });
-      dataChart3.execute();
-    });
+  data: function() {
+    return {
+      selected: 60
+    };
+  },
+  mounted: function mounted() {
+    this.getData();
   },
   methods: {
     printReport: () => {
@@ -140,6 +59,104 @@ export default {
         const pdf = new jsPDF();
         pdf.addImage(imgData, 'JPEG', 0, 0);
         pdf.save('report.pdf');
+      });
+    },
+    getData: function() {
+      window.gapi.analytics.ready(async () => {
+        const client = new JWT(
+          process.env.VUE_APP_client_email,
+          null,
+          process.env.VUE_APP_private_key,
+          ['https://www.googleapis.com/auth/analytics.readonly']
+        );
+
+        const response = await client.getAccessToken();
+        console.log(response.token);
+        const access_token = response.token;
+
+        console.log('Access token: ', access_token);
+        console.log('Env: ', process.env.VUE_APP_TITLE);
+        /**
+         * Authorize the user with an access token obtained server side.
+         */
+        window.gapi.analytics.auth.authorize({
+          serverAuth: {
+            access_token
+          }
+        });
+
+        /**
+         * Creates a new DataChart instance showing sessions over the past 60 days.
+         * It will be rendered inside an element with the id "chart-1-container".
+         */
+        const dataChart1 = new window.gapi.analytics.googleCharts.DataChart({
+          query: {
+            ids: 'ga:163893888', // <-- Replace with the ids value for your view.
+            'start-date': `${this.selected}daysAgo`,
+            'end-date': 'yesterday',
+            metrics: 'ga:sessions,ga:users',
+            dimensions: 'ga:date'
+          },
+          chart: {
+            container: 'chart-1-container',
+            type: 'LINE',
+            options: {
+              width: '100%'
+            }
+          }
+        });
+        dataChart1.execute();
+
+        /**
+         * Creates a new DataChart instance showing top most popular viewed pages.
+         * It will be rendered inside an element with the id "chart-2-container".
+         */
+        const dataChart2 = new window.gapi.analytics.googleCharts.DataChart({
+          query: {
+            ids: 'ga:163893888', // <-- Replace with the ids value for your view.
+            'start-date': '60daysAgo',
+            'end-date': 'yesterday',
+            metrics: 'ga:pageviews',
+            dimensions: 'ga:pagePathLevel1',
+            sort: '-ga:pageviews',
+            filters: 'ga:pagePathLevel1!=/',
+            'max-results': 7
+          },
+          chart: {
+            container: 'chart-2-container',
+            type: 'PIE',
+            options: {
+              width: '100%',
+              pieHole: 4 / 9
+            }
+          }
+        });
+        dataChart2.execute();
+
+        /**
+         * Creates a new DataChart instance showing users vs countries.
+         * It will be rendered inside an element with the id "chart-3-container".
+         */
+
+        const dataChart3 = new window.gapi.analytics.googleCharts.DataChart({
+          query: {
+            ids: 'ga:163893888', // <-- Replace with the ids value for your view.
+            'start-date': '60daysAgo',
+            'end-date': 'yesterday',
+            metrics: 'ga:sessions',
+            dimensions: 'ga:country',
+            sort: '-ga:sessions'
+          },
+          chart: {
+            container: 'chart-3-container',
+            type: 'PIE',
+            options: {
+              width: '100%',
+              pieHole: 4 / 9
+            }
+          }
+        });
+        dataChart3.execute();
       });
     }
   }
