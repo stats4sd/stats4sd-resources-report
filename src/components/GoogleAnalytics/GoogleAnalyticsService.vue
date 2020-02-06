@@ -22,17 +22,17 @@
       <div>
         <header class="Titles">
           <div class="float-right">
-            <select :key="chart2" v-model="chart2" @change="getData">
+            <select :key="chart3" v-model="chart3" @change="getData">
               <option disabled value>Please Select One</option>
               <option>7</option>
               <option>2</option>
               <option>60</option>
               <option>90</option>
             </select>
-            <span>Selected: {{ chart2 }}</span>
+            <span>Selected: {{ chart3 }}</span>
           </div>
           <h3 class="Titles-main">Top Countries by Sessions</h3>
-          <div class="Titles-sub">Last {{ chart2 }} days</div>
+          <div class="Titles-sub">Last {{ chart3 }} days</div>
         </header>
         <div id="chart-3-container"></div>
       </div>
@@ -127,7 +127,7 @@ export default {
         const dataChart2 = new window.gapi.analytics.googleCharts.DataChart({
           query: {
             ids: 'ga:163893888', // <-- Replace with the ids value for your view.
-            'start-date': `${this.chart2}daysAgo`,
+            'start-date': '60daysAgo',
             'end-date': 'yesterday',
             metrics: 'ga:pageviews',
             dimensions: 'ga:pagePathLevel1',
@@ -154,7 +154,7 @@ export default {
         const dataChart3 = new window.gapi.analytics.googleCharts.DataChart({
           query: {
             ids: 'ga:163893888', // <-- Replace with the ids value for your view.
-            'start-date': '60daysAgo',
+            'start-date': `${this.chart3}daysAgo`,
             'end-date': 'yesterday',
             metrics: 'ga:sessions',
             dimensions: 'ga:country',
