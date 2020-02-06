@@ -12,7 +12,6 @@
               <option>60</option>
               <option>90</option>
             </select>
-            <span>Selected: {{ selected }}</span>
           </div>
           <h3 class="Titles-main">Sessions Vs Users</h3>
           <div class="Titles-sub">Last {{ selected }} days</div>
@@ -29,7 +28,6 @@
               <option>60</option>
               <option>90</option>
             </select>
-            <span>Selected: {{ chart3 }}</span>
           </div>
           <h3 class="Titles-main">Top Countries by Sessions</h3>
           <div class="Titles-sub">Last {{ chart3 }} days</div>
