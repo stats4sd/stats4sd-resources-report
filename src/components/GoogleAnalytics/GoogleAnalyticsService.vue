@@ -74,10 +74,19 @@ export default {
     },
     getData: function() {
       window.gapi.analytics.ready(async () => {
+        const { VUE_APP_client_email, VUE_APP_private_key } = process.env;
+        if (!VUE_APP_client_email && !VUE_APP_private_key) {
+          alert(
+            'Client email and private key must be defined in .env file. View Instructions.md for more info'
+          );
+          throw new Error(
+            'Client email and private key must be defined in .env file'
+          );
+        }
         const client = new JWT(
-          process.env.VUE_APP_client_email,
+          VUE_APP_client_email,
           null,
-          process.env.VUE_APP_private_key,
+          VUE_APP_private_key,
           ['https://www.googleapis.com/auth/analytics.readonly']
         );
 
