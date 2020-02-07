@@ -4,7 +4,7 @@
       <div class="row no-gutters">
         <div class="col-md-4">
           <img
-            src="https://source.unsplash.com/random/280x180"
+            :src="'https://stats4sd.org/storage/' + resource.cover_image"
             class="card-img"
             alt=""
           />
