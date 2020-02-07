@@ -11,6 +11,8 @@
 <script>
 import Resource from './Resource';
 import axios from 'axios';
+import MOCK_DATA from '../../mocks/db.json';
+
 export default {
   name: 'Resources',
   components: { Resource },
@@ -20,15 +22,20 @@ export default {
     };
   },
   mounted: function() {
-    axios
-      .get('http://localhost:3000/troves')
-      .then(response => {
-        this.troves = response.data;
-        console.log('Troves data', this.troves);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    // generate mock data (commented code to use with live api)
+    setTimeout(() => {
+      this.troves = MOCK_DATA.troves;
+      console.log('troves', this.troves);
+    }, 2000);
+    // axios
+    //   .get('http://localhost:3000/troves')
+    //   .then(response => {
+    //     this.troves = response.data;
+    //     console.log('Troves data', this.troves);
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
   }
 };
 </script>
