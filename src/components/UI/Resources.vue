@@ -1,7 +1,11 @@
 <template>
   <div>
     <h3>Resources Added</h3>
-    <Resource />
+    <Resource
+      v-for="resource in troves"
+      :key="resource.id"
+      :resource="resource"
+    />
   </div>
 </template>
 <script>
