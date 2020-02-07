@@ -1,10 +1,15 @@
 <template>
-  <div>Resources</div>
+  <div>
+    <h3>Resources Added</h3>
+    <Resource />
+  </div>
 </template>
 <script>
+import Resource from './Resource';
 import axios from 'axios';
 export default {
   name: 'Resources',
+  components: { Resource },
   data() {
     return {
       troves: []
