@@ -19,7 +19,7 @@
             </p>
             <p class="card-text">
               <small class="text-muted"
-                >Added {{ resource.created_at }} ago</small
+                >Added {{ resource.created_at | moment }}</small
               >
             </p>
           </div>
@@ -30,9 +30,20 @@
 </template>
 
 <script>
+import moment from 'moment';
 export default {
   name: 'Resource',
-  props: ['resource']
+  filters: {
+    moment: function(date) {
+      return moment(date).fromNow();
+    }
+  },
+  props: {
+    resource: {
+      type: Object,
+      default: null
+    }
+  }
 };
 </script>
 <style scoped></style>
