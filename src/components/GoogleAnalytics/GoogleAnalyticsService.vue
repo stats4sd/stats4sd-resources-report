@@ -7,10 +7,10 @@
           <div class="float-right">
             <select :key="selected" v-model="selected" @change="getData">
               <option disabled value>Please Select One</option>
-              <option>7</option>
-              <option>28</option>
+              <option>30</option>
               <option>60</option>
               <option>90</option>
+              <option>120</option>
             </select>
           </div>
           <h3 class="Titles-main">Sessions Vs Users</h3>
@@ -23,10 +23,10 @@
           <div class="float-right">
             <select :key="chart3" v-model="chart3" @change="getData">
               <option disabled value>Please Select One</option>
-              <option>7</option>
-              <option>2</option>
+              <option>30</option>
               <option>60</option>
               <option>90</option>
+              <option>120</option>
             </select>
           </div>
           <h3 class="Titles-main">Top Countries by Sessions</h3>
