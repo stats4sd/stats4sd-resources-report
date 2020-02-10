@@ -61,9 +61,9 @@ export default {
   name: 'GoogleAnalyticsService',
   data: function() {
     return {
-      chart1: 60,
-      chart2: 60,
-      chart3: 60
+      chart1: 30,
+      chart2: 30,
+      chart3: 30
     };
   },
   mounted: function mounted() {
@@ -119,7 +119,7 @@ export default {
          */
         const dataChart1 = new window.gapi.analytics.googleCharts.DataChart({
           query: {
-            ids: 'ga:163893888', // <-- Replace with the ids value for your view.
+            ids: 'ga:209389023', // <-- Replace with the ids value for your view.
             'start-date': `${this.chart1}daysAgo`,
             'end-date': 'yesterday',
             metrics: 'ga:sessions,ga:users',
@@ -141,7 +141,7 @@ export default {
          */
         const dataChart2 = new window.gapi.analytics.googleCharts.DataChart({
           query: {
-            ids: 'ga:163893888', // <-- Replace with the ids value for your view.
+            ids: 'ga:209389023', // <-- Replace with the ids value for your view.
             'start-date': `${this.chart2}daysAgo`,
             'end-date': 'yesterday',
             metrics: 'ga:pageviews',
@@ -168,7 +168,7 @@ export default {
 
         const dataChart3 = new window.gapi.analytics.googleCharts.DataChart({
           query: {
-            ids: 'ga:163893888', // <-- Replace with the ids value for your view.
+            ids: 'ga:209389023', // <-- Replace with the ids value for your view.
             'start-date': `${this.chart3}daysAgo`,
             'end-date': 'yesterday',
             metrics: 'ga:sessions',
