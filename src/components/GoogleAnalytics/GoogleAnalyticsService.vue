@@ -36,7 +36,7 @@
       </div>
       <div>
         <header class="Titles">
-                <div class="float-right">
+          <div class="float-right">
             <select :key="chart2" v-model="chart2" @change="getData">
               <option disabled value>Please Select One</option>
               <option>30</option>
@@ -46,7 +46,7 @@
             </select>
           </div>
           <h3 class="Titles-main">Top Visted Pages</h3>
-          <div class="Titles-sub">Last {{chart2}} days</div>
+          <div class="Titles-sub">Last {{ chart2 }} days</div>
         </header>
         <div id="chart-2-container"></div>
       </div>
@@ -204,8 +204,16 @@ export default {
   margin-top: 0.2em;
 }
 #report {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   background-color: #f5f5f5;
   width: 210mm;
   min-height: 297mm;
 }
+/*@media screen and (max-width: 768px) {
+  #chart-1-container {
+    max-width: 300px;
+  }
+}*/
 </style>

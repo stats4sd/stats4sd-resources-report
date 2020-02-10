@@ -7,7 +7,9 @@
             <router-link to="/" class="nav-link">Dashboard</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/resources" class="nav-link">Resources</router-link>
+            <router-link to="/resources" class="nav-link"
+              >Resources</router-link
+            >
           </li>
         </ul>
       </div>

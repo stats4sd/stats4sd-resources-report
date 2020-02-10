@@ -1,26 +1,28 @@
 <template>
   <div>
-    <div class="card mb-3" style="max-width: 740px;">
+    <div class="card mb-2">
       <div class="row no-gutters">
         <div class="col-md-4">
           <img
             :src="'https://stats4sd.org/storage/' + resource.cover_image"
             class="card-img"
-            alt=""
+            alt
+            width="70"
+            height="130"
           />
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title">{{ resource.title }}</h5>
+            <h5 class="card-title">{{ resource.title.slice(0, -3) }}</h5>
             <p class="card-text">
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
+              {{ resource.description.substring(0, 100) }}...
+              <a
+                target="_blank"
+                :href="'https://stats4sd.org/resources/' + resource.id"
+              >Read more</a>
             </p>
-            <p class="card-text">
-              <small class="text-muted"
-                >Added {{ resource.created_at | moment }}</small
-              >
+            <p>
+              <small class="text-muted">Added {{ resource.created_at | moment }}</small>
             </p>
           </div>
         </div>
@@ -46,4 +48,9 @@ export default {
   }
 };
 </script>
-<style scoped></style>
+<style scoped>
+.card {
+  max-width: 740px;
+  max-height: 200px;
+}
+</style>

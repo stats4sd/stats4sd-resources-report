@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Resources Added</h3>
+    <h3>Recent Added Resources</h3>
     <Resource
       v-for="resource in troves"
       :key="resource.id"
@@ -24,7 +24,7 @@ export default {
   mounted: function() {
     // generate mock data (commented code to use with live api)
     setTimeout(() => {
-      this.troves = MOCK_DATA.troves;
+      this.troves = MOCK_DATA.troves.slice(1, 4);
       console.log('troves', this.troves);
     }, 2000);
     // axios
