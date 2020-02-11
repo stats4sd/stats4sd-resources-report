@@ -61,7 +61,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="row in rows" :key="row">
+              <tr v-for="row in resources" :key="row">
                 <td>{{ row[0] }}</td>
                 <td>{{ row[1] }}</td>
               </tr>
@@ -86,10 +86,25 @@ export default {
       rows: []
     };
   },
+  computed: {
+    resources: function() {
+      function filterString(array) {
+        return array.filter(innerArray => innerArray[0] === '/resources');
+      }
+      /* return this.rows.filter(function(r) {
+        return r;
+
+    }*/
+      return filterString(this.rows);
+    }
+  },
   mounted: function mounted() {
     this.getData();
   },
   methods: {
+    testResources: () => {
+      console.log('Test', this.rows);
+    },
     printReport: () => {
       const input = document.getElementById('report');
       html2canvas(input).then(canvas => {
