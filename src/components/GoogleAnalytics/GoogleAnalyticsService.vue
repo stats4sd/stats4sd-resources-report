@@ -112,7 +112,12 @@ export default {
             access_token
           }
         });
-
+        window.gapi.client
+          .request({
+            path:
+              'https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A209389023&start-date=3daysAgo&end-date=today&metrics=ga%3Ausers&dimensions=ga%3Acountry&sort=-ga%3Ausers&max-results=10'
+          })
+          .then(response => console.log('new response', response));
         /**
          * Creates a new DataChart instance showing sessions over the past 60 days.
          * It will be rendered inside an element with the id "chart-1-container".
@@ -145,10 +150,10 @@ export default {
             'start-date': `${this.chart2}daysAgo`,
             'end-date': 'yesterday',
             metrics: 'ga:pageviews',
-            dimensions: 'ga:pagePathLevel1',
+            dimensions: 'ga:pagePath',
             sort: '-ga:pageviews',
             filters: 'ga:pagePathLevel1!=/',
-            'max-results': 7
+            'max-results': 40
           },
           chart: {
             container: 'chart-2-container',
