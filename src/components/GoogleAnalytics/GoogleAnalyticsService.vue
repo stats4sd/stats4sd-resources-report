@@ -50,6 +50,25 @@
         </header>
         <div id="chart-2-container"></div>
       </div>
+      <div>
+        <header class="Titles">
+          <h3 class="Titles-main">Pages Visited</h3>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Page</th>
+                <th scope="col">Number of Views</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="row in rows" :key="row">
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </header>
+      </div>
     </div>
   </div>
 </template>
@@ -63,7 +82,8 @@ export default {
     return {
       chart1: 30,
       chart2: 30,
-      chart3: 30
+      chart3: 30,
+      rows: []
     };
   },
   mounted: function mounted() {
@@ -115,9 +135,14 @@ export default {
         window.gapi.client
           .request({
             path:
-              'https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A209389023&start-date=3daysAgo&end-date=today&metrics=ga%3Ausers&dimensions=ga%3Acountry&sort=-ga%3Ausers&max-results=10'
+              'https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A209389023&start-date=30daysAgo&end-date=today&metrics=ga%3Apageviews&dimensions=ga%3ApagePath&sort=-ga%3Apageviews&filters=ga%3ApagePathLevel1!%3D%2F&max-results=50'
           })
-          .then(response => console.log('new response', response));
+          .then(response => {
+            this.rows = response.result.rows;
+
+            console.log('new response', response.result.rows);
+            console.log('New row data', this.rows);
+          });
         /**
          * Creates a new DataChart instance showing sessions over the past 60 days.
          * It will be rendered inside an element with the id "chart-1-container".
