@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Stats4SD</a>
+      <router-link class="navbar-brand" to="/">Stats4SD</router-link>
       <button
         class="navbar-toggler"
         type="button"

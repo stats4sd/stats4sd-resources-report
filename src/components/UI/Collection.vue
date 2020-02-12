@@ -19,7 +19,7 @@
               {{ collection.description.substring(0, 100) }}...
               <a
                 target="_blank"
-                :href="'https://stats4sd.org/collection/' + collection.id"
+                :href="'https://stats4sd.org/collections/' + collection.id"
               >Read more</a>
             </p>
             <p>
