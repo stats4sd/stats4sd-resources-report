@@ -34,7 +34,7 @@
 <script>
 import moment from 'moment';
 export default {
-  name: 'Resource',
+  name: 'Collection',
   filters: {
     moment: function(date) {
       return moment(date).fromNow();

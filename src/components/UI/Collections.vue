@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Recently Added Resources</h3>
+    <h3>Recently Added Collections</h3>
     <Resource
       v-for="resource in troves"
       :key="resource.id"
@@ -9,12 +9,12 @@
   </div>
 </template>
 <script>
-import Resource from './Resource';
+import Resource from './Collection';
 import axios from 'axios';
 import MOCK_DATA from '../../mocks/db.json';
 
 export default {
-  name: 'Resources',
+  name: 'Collections',
   components: { Resource },
   data() {
     return {
