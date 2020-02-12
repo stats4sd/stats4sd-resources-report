@@ -89,12 +89,11 @@ export default {
   computed: {
     resources: function() {
       function filterString(array) {
-        return array.filter(innerArray => innerArray[0] === '/resources');
+        return array.filter(
+          innerArray => innerArray[0].toString().includes('/resources') //check if string contains /resources to omit other urls
+        );
       }
-      /* return this.rows.filter(function(r) {
-        return r;
 
-    }*/
       return filterString(this.rows);
     }
   },
@@ -102,9 +101,6 @@ export default {
     this.getData();
   },
   methods: {
-    testResources: () => {
-      console.log('Test', this.rows);
-    },
     printReport: () => {
       const input = document.getElementById('report');
       html2canvas(input).then(canvas => {
