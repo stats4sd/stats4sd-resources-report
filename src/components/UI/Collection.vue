@@ -2,9 +2,10 @@
   <div>
     <div class="card mb-2">
       <div class="row no-gutters">
-        <div class="col-md-4">,
+        <div class="col-md-4">
+          ,
           <img
-            :src="'https://stats4sd.org/storage/' + resource.cover_image"
+            :src="'https://stats4sd.org/storage/' + collection.cover_image"
             class="card-img"
             alt
             width="70"
@@ -13,16 +14,16 @@
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title">{{ resource.title.slice(0, -3) }}</h5>
+            <h5 class="card-title">{{ collection.title.slice(0, -3) }}</h5>
             <p class="card-text">
-              {{ resource.description.substring(0, 100) }}...
+              {{ collection.description.substring(0, 100) }}...
               <a
                 target="_blank"
-                :href="'https://stats4sd.org/resources/' + resource.id"
+                :href="'https://stats4sd.org/collection/' + collection.id"
               >Read more</a>
             </p>
             <p>
-              <small class="text-muted">Added {{ resource.created_at | moment }}</small>
+              <small class="text-muted">Added {{ collection.created_at | moment }}</small>
             </p>
           </div>
         </div>
@@ -41,7 +42,7 @@ export default {
     }
   },
   props: {
-    resource: {
+    collection: {
       type: Object,
       default: null
     }
