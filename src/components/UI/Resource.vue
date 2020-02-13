@@ -28,7 +28,7 @@
 
             <div v-for="r in resources" v-if="r[0] === `/resources/${resource.id}`" :key="r">
               <p>
-                Times Viewed:
+                Number of Times Viewed:
                 <span class="text-muted">{{ r[1] }}</span>
               </p>
             </div>
