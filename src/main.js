@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import App from './App.vue';
 import GoogleAnalytics from './components/GoogleAnalytics/GoogleAnalyticsService';
 import Resources from './components/UI/Resources';
-import Collections from './components/UI/Collections'
+import Collections from './components/UI/Collections';
 
 Vue.use(VueRouter);
 const routes = [

@@ -21,6 +21,7 @@ export default {
       troves: []
     };
   },
+
   mounted: function() {
     // generate mock data (commented code to use with live api)
     setTimeout(() => {

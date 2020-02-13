@@ -1,7 +1,11 @@
 <template>
   <div>
     <h3>Recently Added Collections</h3>
-    <Collection v-for="collection in collections" :key="collection.id" :collection="collection" />
+    <Collection
+      v-for="collection in collections"
+      :key="collection.id"
+      :collection="collection"
+    />
   </div>
 </template>
 <script>

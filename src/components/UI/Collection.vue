@@ -20,10 +20,13 @@
               <a
                 target="_blank"
                 :href="'https://stats4sd.org/collections/' + collection.id"
-              >Read more</a>
+                >Read more</a
+              >
             </p>
             <p>
-              <small class="text-muted">Added {{ collection.created_at | moment }}</small>
+              <small class="text-muted"
+                >Added {{ collection.created_at | moment }}</small
+              >
             </p>
           </div>
         </div>

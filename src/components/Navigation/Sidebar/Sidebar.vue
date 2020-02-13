@@ -11,7 +11,7 @@
               >Resources</router-link
             >
           </li>
-           <li class="nav-item">
+          <li class="nav-item">
             <router-link to="/collections" class="nav-link"
               >Collections</router-link
             >
