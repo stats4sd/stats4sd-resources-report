@@ -27,10 +27,12 @@
             </p>
 
             <div v-for="r in resources" v-if="r[0] === `/resources/${resource.id}`" :key="r">
-              <p>
-                Number of Times Viewed:
-                <span class="text-muted">{{ r[1] }}</span>
-              </p>
+              <div class="alert alert-primary" role="alert">
+                <p>
+                  Number of Times Viewed:
+                  <span class="text-muted">{{ r[1] }}</span>
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -121,6 +123,6 @@ export default {
 <style scoped>
 .card {
   max-width: 740px;
-  max-height: 200px;
+  max-height: 300px;
 }
 </style>
