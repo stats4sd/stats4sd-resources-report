@@ -76,6 +76,7 @@
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 const { JWT } = require('google-auth-library');
+import { filterGAPageData } from '../../utils';
 export default {
   name: 'GoogleAnalyticsService',
   data: function() {
@@ -88,12 +89,6 @@ export default {
   },
   computed: {
     resources: function() {
-      function filterGAPageData(allResults, searchString) {
-        return allResults.filter(
-          innerArray => innerArray[0].toString().includes(searchString) //check if string contains /resources to omit other urls
-        );
-      }
-
       return filterGAPageData(this.rows, '/resources/');
     }
   },

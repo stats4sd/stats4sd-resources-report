@@ -42,7 +42,7 @@
 <script>
 import moment from 'moment';
 const { JWT } = require('google-auth-library');
-
+import { filterGAPageData } from '../../utils';
 export default {
   name: 'Resource',
   filters: {
@@ -63,13 +63,7 @@ export default {
   },
   computed: {
     resources: function() {
-      function filterString(array) {
-        return array.filter(
-          innerArray => innerArray[0].toString().includes('/resources') //check if string contains /resources to omit other urls
-        );
-      }
-
-      return filterString(this.rows);
+      return filterGAPageData(this.rows, '/resources/');
     }
   },
   mounted: function() {
