@@ -88,13 +88,13 @@ export default {
   },
   computed: {
     resources: function() {
-      function filterGAPageData(GAData) {
-        return GAData.filter(
-          innerArray => innerArray[0].toString().includes('/resources') //check if string contains /resources to omit other urls
+      function filterGAPageData(allResults, searchString) {
+        return allResults.filter(
+          innerArray => innerArray[0].toString().includes(searchString) //check if string contains /resources to omit other urls
         );
       }
 
-      return filterGAPageData(this.rows);
+      return filterGAPageData(this.rows, '/resources/');
     }
   },
   mounted: function mounted() {
