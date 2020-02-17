@@ -63,7 +63,11 @@
             <tbody>
               <tr v-for="row in resources" :key="row[0]">
                 <td>
-                  <a target="_blank" :href="'https://stats4sd.org' + row[0]">{{ row[0] }}</a>
+                  <a target="_blank" :href="'https://stats4sd.org' + row[0]">
+                    {{
+                    row[0]
+                    }}
+                  </a>
                 </td>
                 <td>{{ row[1] }}</td>
               </tr>
@@ -111,8 +115,6 @@ export default {
     getData: function() {
       window.gapi.analytics.ready(async () => {
         const { VUE_APP_client_email, VUE_APP_private_key } = process.env;
-        console.log('Email:', VUE_APP_client_email);
-        console.log('key:', VUE_APP_private_key.replace(/\\n/g, '\n'));
         if (!VUE_APP_client_email && !VUE_APP_private_key) {
           alert(
             'Client email and private key must be defined in .env file. View Instructions.md for more info'
@@ -121,13 +123,10 @@ export default {
             'Client email and private key must be defined in .env file'
           );
         }
-
-        const client = new JWT(
-          VUE_APP_client_email,
-          null,
-          VUE_APP_private_key.replace(/\\n/g, '\n'),
-          ['https://www.googleapis.com/auth/analytics.readonly']
-        );
+        const private_key = VUE_APP_private_key.replace(/\\n/g, '\n');
+        const client = new JWT(VUE_APP_client_email, null, private_key, [
+          'https://www.googleapis.com/auth/analytics.readonly'
+        ]);
 
         const response = await client.getAccessToken();
         const access_token = response.token;
