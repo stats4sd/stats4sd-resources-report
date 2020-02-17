@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ loading }}
     
     <h3>Recently Added Resources</h3>
     <div class="text-center" v-if="loading">
@@ -48,7 +47,6 @@ export default {
       this.troves = MOCK_DATA.troves.slice(1, 4);
       this.collections = MOCK_DATA.collections.slice(1, 4);
       this.loading = false;
-      console.log('collections', this.collections);
     }, 2000);
   }
 };

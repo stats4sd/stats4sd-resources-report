@@ -61,12 +61,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="row in resources" :key="row">
+              <tr v-for="row in resources" :key="row[0]">
                 <td>
                   <a target="_blank" :href="'https://stats4sd.org' + row[0]">
-                    {{
-                    row[0]
-                    }}
+                    {{ row[0] }}
                   </a>
                 </td>
                 <td>{{ row[1] }}</td>
@@ -131,11 +129,8 @@ export default {
         );
 
         const response = await client.getAccessToken();
-        console.log(response.token);
         const access_token = response.token;
 
-        console.log('Access token: ', access_token);
-        console.log('Env: ', process.env.VUE_APP_TITLE);
         /**
          * Authorize the user with an access token obtained server side.
          */
@@ -151,9 +146,6 @@ export default {
           })
           .then(response => {
             this.rows = response.result.rows;
-
-            console.log('new response', response.result.rows);
-            console.log('New row data', this.rows);
           });
         /**
          * Creates a new DataChart instance showing sessions over the past 60 days.

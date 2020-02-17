@@ -26,7 +26,7 @@
               <small class="text-muted">Added {{ resource.created_at | moment }}</small>
             </p>
 
-            <div v-for="r in resources" v-if="r[0] === `/resources/${resource.id}`" :key="r">
+            <div v-for="r in resources" v-if="r[0] === `/resources/${resource.id}`" :key="r[0]">
               <div class="alert alert-primary" role="alert">
                 <p>
                   Number of Times Viewed:
@@ -73,7 +73,6 @@ export default {
   },
   methods: {
     getData: function() {
-      console.log('get data');
       window.gapi.analytics.ready(async () => {
         const { VUE_APP_client_email, VUE_APP_private_key } = process.env;
         if (!VUE_APP_client_email && !VUE_APP_private_key) {
@@ -92,11 +91,9 @@ export default {
         );
 
         const response = await client.getAccessToken();
-        console.log(response.token);
         const access_token = response.token;
 
-        console.log('Access token: ', access_token);
-        console.log('Env: ', process.env.VUE_APP_TITLE);
+        
         /**
          * Authorize the user with an access token obtained server side.
          */
@@ -113,7 +110,6 @@ export default {
           .then(response => {
             this.rows = response.result.rows;
 
-            console.log('New row data', this.rows[0][0]);
           });
       });
     }
