@@ -62,7 +62,13 @@
             </thead>
             <tbody>
               <tr v-for="row in resources" :key="row">
-                <td>{{ row[0] }}</td>
+                <td>
+                  <a target="_blank" :href="'https://stats4sd.org' + row[0]">
+                    {{
+                    row[0]
+                    }}
+                  </a>
+                </td>
                 <td>{{ row[1] }}</td>
               </tr>
             </tbody>
