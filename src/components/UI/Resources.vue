@@ -1,15 +1,34 @@
 <template>
   <div>
+    {{ loading }}
+    
     <h3>Recently Added Resources</h3>
-    <Resource v-for="resource in troves" :key="resource.id" :resource="resource" />
+    <div class="text-center" v-if="loading">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <Resource
+      v-for="resource in troves"
+      :key="resource.id"
+      :resource="resource"
+    />
     <h3>Recently Added Collections</h3>
-    <Collection v-for="collection in collections" :key="collection.id" :collection="collection" />
+    <div class="text-center" v-if="loading">
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <Collection
+      v-for="collection in collections"
+      :key="collection.id"
+      :collection="collection"
+    />
   </div>
 </template>
 <script>
 import Resource from './Resource';
 import Collection from './Collection';
-import axios from 'axios';
 import MOCK_DATA from '../../mocks/db.json';
 
 export default {
@@ -17,6 +36,7 @@ export default {
   components: { Resource, Collection },
   data() {
     return {
+      loading: true,
       troves: [],
       collections: []
     };
@@ -27,7 +47,7 @@ export default {
     setTimeout(() => {
       this.troves = MOCK_DATA.troves.slice(1, 4);
       this.collections = MOCK_DATA.collections.slice(1, 4);
-
+      this.loading = false;
       console.log('collections', this.collections);
     }, 2000);
   }
