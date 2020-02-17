@@ -5,16 +5,16 @@
       <div>
         <header class="Titles">
           <div class="float-right">
-            <select :key="selected" v-model="selected" @change="getData">
+            <select :key="chart1" v-model="chart1" @change="getData">
               <option disabled value>Please Select One</option>
-              <option>7</option>
-              <option>28</option>
+              <option>30</option>
               <option>60</option>
               <option>90</option>
+              <option>120</option>
             </select>
           </div>
           <h3 class="Titles-main">Sessions Vs Users</h3>
-          <div class="Titles-sub">Last {{ selected }} days</div>
+          <div class="Titles-sub">Last {{ chart1 }} days</div>
         </header>
         <div id="chart-1-container"></div>
       </div>
@@ -23,10 +23,10 @@
           <div class="float-right">
             <select :key="chart3" v-model="chart3" @change="getData">
               <option disabled value>Please Select One</option>
-              <option>7</option>
-              <option>2</option>
+              <option>30</option>
               <option>60</option>
               <option>90</option>
+              <option>120</option>
             </select>
           </div>
           <h3 class="Titles-main">Top Countries by Sessions</h3>
@@ -36,10 +36,42 @@
       </div>
       <div>
         <header class="Titles">
+          <div class="float-right">
+            <select :key="chart2" v-model="chart2" @change="getData">
+              <option disabled value>Please Select One</option>
+              <option>30</option>
+              <option>60</option>
+              <option>90</option>
+              <option>120</option>
+            </select>
+          </div>
           <h3 class="Titles-main">Top Visted Pages</h3>
-          <div class="Titles-sub">Last 60 days</div>
+          <div class="Titles-sub">Last {{ chart2 }} days</div>
         </header>
         <div id="chart-2-container"></div>
+      </div>
+      <div>
+        <header class="Titles">
+          <h3 class="Titles-main">Pages Visited</h3>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Page</th>
+                <th scope="col">Number of Views</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="row in resources" :key="row[0]">
+                <td>
+                  <a target="_blank" :href="'https://stats4sd.org' + row[0]">
+                    {{ row[0] }}
+                  </a>
+                </td>
+                <td>{{ row[1] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </header>
       </div>
     </div>
   </div>
@@ -48,15 +80,21 @@
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 const { JWT } = require('google-auth-library');
+import { filterGAPageData } from '../../utils';
 export default {
   name: 'GoogleAnalyticsService',
   data: function() {
     return {
-      selected: 60,
-      chart1: 60,
-      chart2: 60,
-      chart3: 60
+      chart1: 30,
+      chart2: 30,
+      chart3: 30,
+      rows: []
     };
+  },
+  computed: {
+    resources: function() {
+      return filterGAPageData(this.rows, '/resources/');
+    }
   },
   mounted: function mounted() {
     this.getData();
@@ -75,6 +113,8 @@ export default {
     getData: function() {
       window.gapi.analytics.ready(async () => {
         const { VUE_APP_client_email, VUE_APP_private_key } = process.env;
+        console.log('Email:', VUE_APP_client_email);
+        console.log('key:', VUE_APP_private_key);
         if (!VUE_APP_client_email && !VUE_APP_private_key) {
           alert(
             'Client email and private key must be defined in .env file. View Instructions.md for more info'
@@ -83,6 +123,7 @@ export default {
             'Client email and private key must be defined in .env file'
           );
         }
+
         const client = new JWT(
           VUE_APP_client_email,
           null,
@@ -91,11 +132,8 @@ export default {
         );
 
         const response = await client.getAccessToken();
-        console.log(response.token);
         const access_token = response.token;
 
-        console.log('Access token: ', access_token);
-        console.log('Env: ', process.env.VUE_APP_TITLE);
         /**
          * Authorize the user with an access token obtained server side.
          */
@@ -104,15 +142,22 @@ export default {
             access_token
           }
         });
-
+        window.gapi.client
+          .request({
+            path:
+              'https://www.googleapis.com/analytics/v3/data/ga?ids=ga%3A209389023&start-date=30daysAgo&end-date=today&metrics=ga%3Apageviews&dimensions=ga%3ApagePath&sort=-ga%3Apageviews&filters=ga%3ApagePathLevel1!%3D%2F&max-results=50'
+          })
+          .then(response => {
+            this.rows = response.result.rows;
+          });
         /**
          * Creates a new DataChart instance showing sessions over the past 60 days.
          * It will be rendered inside an element with the id "chart-1-container".
          */
         const dataChart1 = new window.gapi.analytics.googleCharts.DataChart({
           query: {
-            ids: 'ga:163893888', // <-- Replace with the ids value for your view.
-            'start-date': `${this.selected}daysAgo`,
+            ids: 'ga:209389023', // <-- Replace with the ids value for your view.
+            'start-date': `${this.chart1}daysAgo`,
             'end-date': 'yesterday',
             metrics: 'ga:sessions,ga:users',
             dimensions: 'ga:date'
@@ -133,14 +178,14 @@ export default {
          */
         const dataChart2 = new window.gapi.analytics.googleCharts.DataChart({
           query: {
-            ids: 'ga:163893888', // <-- Replace with the ids value for your view.
-            'start-date': '60daysAgo',
+            ids: 'ga:209389023', // <-- Replace with the ids value for your view.
+            'start-date': `${this.chart2}daysAgo`,
             'end-date': 'yesterday',
             metrics: 'ga:pageviews',
-            dimensions: 'ga:pagePathLevel1',
+            dimensions: 'ga:pagePath',
             sort: '-ga:pageviews',
             filters: 'ga:pagePathLevel1!=/',
-            'max-results': 7
+            'max-results': 40
           },
           chart: {
             container: 'chart-2-container',
@@ -160,7 +205,7 @@ export default {
 
         const dataChart3 = new window.gapi.analytics.googleCharts.DataChart({
           query: {
-            ids: 'ga:163893888', // <-- Replace with the ids value for your view.
+            ids: 'ga:209389023', // <-- Replace with the ids value for your view.
             'start-date': `${this.chart3}daysAgo`,
             'end-date': 'yesterday',
             metrics: 'ga:sessions',
@@ -196,8 +241,16 @@ export default {
   margin-top: 0.2em;
 }
 #report {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   background-color: #f5f5f5;
   width: 210mm;
   min-height: 297mm;
 }
+/*@media screen and (max-width: 768px) {
+  #chart-1-container {
+    max-width: 300px;
+  }
+}*/
 </style>
