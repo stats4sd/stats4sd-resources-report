@@ -211,10 +211,10 @@ export default {
           },
           chart: {
             container: 'chart-3-container',
-            type: 'PIE',
+            type: 'GEO',
             options: {
               width: '100%',
-              pieHole: 4 / 9
+              colorAxis: { colors: ['#00853f', 'black', '#e31b23'] }
             }
           }
         });
