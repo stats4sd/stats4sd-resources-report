@@ -74,6 +74,7 @@ export default {
   methods: {
     getData: function() {
       window.gapi.analytics.ready(async () => {
+        console.log('private key in Resource: ', VUE_APP_private_key);
         const { VUE_APP_client_email, VUE_APP_private_key } = process.env;
         if (!VUE_APP_client_email && !VUE_APP_private_key) {
           alert(
@@ -92,8 +93,8 @@ export default {
 
         const response = await client.getAccessToken();
         const access_token = response.token;
+        console.log('Access token in Resource: ', access_token);
 
-        
         /**
          * Authorize the user with an access token obtained server side.
          */
@@ -109,7 +110,6 @@ export default {
           })
           .then(response => {
             this.rows = response.result.rows;
-
           });
       });
     }
