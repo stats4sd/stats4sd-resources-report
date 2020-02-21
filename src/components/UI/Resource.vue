@@ -74,8 +74,9 @@ export default {
   methods: {
     getData: function() {
       window.gapi.analytics.ready(async () => {
-        console.log('private key in Resource: ', VUE_APP_private_key);
         const { VUE_APP_client_email, VUE_APP_private_key } = process.env;
+        console.log('private key in Resource: ', VUE_APP_private_key);
+
         if (!VUE_APP_client_email && !VUE_APP_private_key) {
           alert(
             'Client email and private key must be defined in .env file. View Instructions.md for more info'
