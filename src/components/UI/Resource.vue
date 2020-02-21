@@ -75,7 +75,6 @@ export default {
     getData: function() {
       window.gapi.analytics.ready(async () => {
         const { VUE_APP_client_email, VUE_APP_private_key } = process.env;
-        console.log('private key in Resource: ', VUE_APP_private_key);
 
         if (!VUE_APP_client_email && !VUE_APP_private_key) {
           alert(
@@ -85,16 +84,14 @@ export default {
             'Client email and private key must be defined in .env file'
           );
         }
-        const client = new JWT(
-          VUE_APP_client_email,
-          null,
-          VUE_APP_private_key,
-          ['https://www.googleapis.com/auth/analytics.readonly']
-        );
+        const private_key = VUE_APP_private_key.replace(/\\n/g, '\n'); //escape \n on netlify deployment
+
+        const client = new JWT(VUE_APP_client_email, null, private_key, [
+          'https://www.googleapis.com/auth/analytics.readonly'
+        ]);
 
         const response = await client.getAccessToken();
         const access_token = response.token;
-        console.log('Access token in Resource: ', access_token);
 
         /**
          * Authorize the user with an access token obtained server side.

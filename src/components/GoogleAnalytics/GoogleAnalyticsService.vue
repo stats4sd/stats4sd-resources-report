@@ -108,7 +108,6 @@ export default {
       );
       throw new Error('Maps API key be defined in .env file');
     }
-    console.log('Maps Key: ', process.env.VUE_APP_google_maps_key);
     script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.VUE_APP_google_maps_key}`;
     document.head.append(script);
     this.getData();
