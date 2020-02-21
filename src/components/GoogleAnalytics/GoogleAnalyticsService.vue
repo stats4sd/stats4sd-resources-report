@@ -64,9 +64,7 @@
               <tr v-for="row in resources" :key="row[0]">
                 <td>
                   <a target="_blank" :href="'https://stats4sd.org' + row[0]">
-                    {{
-                    row[0]
-                    }}
+                    {{ row[0] }}
                   </a>
                 </td>
                 <td>{{ row[1] }}</td>
@@ -99,6 +97,11 @@ export default {
     }
   },
   mounted: function mounted() {
+    // note, requires google.com/jsapi script in index.html
+    // TODO - check if script already loaded
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.VUE_APP_google_maps_key}`;
+    document.head.append(script);
     this.getData();
   },
   methods: {
