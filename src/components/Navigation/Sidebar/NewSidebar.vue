@@ -20,7 +20,7 @@
           </li>
           <li>
             <router-link to="/resources">
-              <span class="fa fa-user mr-3"></span> Resources
+              <span class="fa fa-sticky-note mr-3"></span> Resources
             </router-link>
           </li>
         </ul>
