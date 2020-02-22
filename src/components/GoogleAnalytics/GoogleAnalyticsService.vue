@@ -63,7 +63,9 @@
             <tbody>
               <tr v-for="row in resources" :key="row[0]">
                 <td>
-                  <a target="_blank" :href="'https://stats4sd.org' + row[0]">{{ row[0] }}</a>
+                  <a target="_blank" :href="'https://stats4sd.org' + row[0]">{{
+                    row[0]
+                  }}</a>
                 </td>
                 <td>{{ row[1] }}</td>
               </tr>
@@ -263,12 +265,12 @@ export default {
   flex-direction: column;
   flex-wrap: wrap;
   background-color: #f5f5f5;
-  width: 210mm;
-  min-height: 297mm;
+  width: 100%;
 }
-/*@media screen and (max-width: 768px) {
-  #chart-1-container {
-    max-width: 300px;
+
+@media screen and (max-width: 500px) {
+  #report {
+    width: 100%;
   }
-}*/
+}
 </style>

@@ -1,17 +1,19 @@
 <template>
   <Fragment>
     <div id="content" class="p-4 p-md-5 pt-5">
-      <p>Content</p>
       <router-view> </router-view>
+
+      <GoogleAnalyticsService />
     </div>
   </Fragment>
 </template>
 
 <script>
 import { Fragment } from 'vue-fragment';
+import GoogleAnalyticsService from '../GoogleAnalytics/GoogleAnalyticsService';
 export default {
   name: 'Main',
-  components: { Fragment }
+  components: { Fragment, GoogleAnalyticsService }
 };
 </script>
 
