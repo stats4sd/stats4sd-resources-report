@@ -236,8 +236,7 @@ export default {
             container: 'chart-3-container',
             type: 'GEO',
             options: {
-              width: '100%',
-              colorAxis: { colors: ['#00853f', 'black', '#e31b23'] }
+              width: '100%'
             }
           }
         });
