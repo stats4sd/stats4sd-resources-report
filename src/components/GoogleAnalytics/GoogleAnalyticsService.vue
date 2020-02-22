@@ -63,11 +63,7 @@
             <tbody>
               <tr v-for="row in resources" :key="row[0]">
                 <td>
-                  <a target="_blank" :href="'https://stats4sd.org' + row[0]">
-                    {{
-                    row[0]
-                    }}
-                  </a>
+                  <a target="_blank" :href="'https://stats4sd.org' + row[0]">{{ row[0] }}</a>
                 </td>
                 <td>{{ row[1] }}</td>
               </tr>
@@ -102,14 +98,28 @@ export default {
     // note, requires google.com/jsapi script in index.html
     // TODO - check if script already loaded
     const script = document.createElement('script');
-    if (!process.env.VUE_APP_client_email) {
+
+    //check if the google_maps_key is added in env variables
+    if (!process.env.VUE_APP_google_maps_key) {
       alert(
         'Maps API key must be defined in .env file. View Instructions.md for more info'
       );
       throw new Error('Maps API key be defined in .env file');
     }
     script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.VUE_APP_google_maps_key}`;
-    document.head.append(script);
+    //Before appending script, check if script is not added when compenent re-mounts
+    //to prevent it from being added multiple tines
+    const children = document.getElementsByTagName('head')[0].childNodes;
+    let found = false;
+    for (let i = 0; i < children.length; i++) {
+      if (children[i].src === script.src) {
+        found = true;
+        break;
+      }
+    }
+    if (found == false) {
+      document.getElementsByTagName('head')[0].append(script);
+    }
     this.getData();
   },
   methods: {
