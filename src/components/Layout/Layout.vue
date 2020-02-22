@@ -1,23 +1,26 @@
 <template>
-  <div class="container-fluid">
+  <Fragment>
     <Toolbar />
-    <div class="row">
-      <Sidebar />
+
+    <div class="wrapper d-flex align-items-stretch">
+      <NewSidebar />
       <Main />
     </div>
-  </div>
+  </Fragment>
 </template>
 
 <script>
-import Sidebar from '../Navigation/Sidebar/Sidebar';
+import NewSidebar from '../Navigation/Sidebar/NewSidebar';
 import Toolbar from '../Navigation/Toolbar/Toolbar';
 import Main from '../Main/Main';
+import { Fragment } from 'vue-fragment';
 export default {
   name: 'Layout',
   components: {
-    Sidebar,
+    NewSidebar,
     Toolbar,
-    Main
+    Main,
+    Fragment
   }
 };
 </script>

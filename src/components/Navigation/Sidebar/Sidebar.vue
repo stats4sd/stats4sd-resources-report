@@ -1,4 +1,5 @@
 <template>
+
   <div class="col-md-2 d-md-block bg-light sidebar">
     <nav>
       <div class="sidebar-sticky">

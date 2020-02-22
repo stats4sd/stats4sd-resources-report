@@ -9,10 +9,6 @@ const routes = [
   {
     path: '/resources',
     component: Resources
-  },
-  {
-    path: '/',
-    component: GoogleAnalytics
   }
 ];
 
