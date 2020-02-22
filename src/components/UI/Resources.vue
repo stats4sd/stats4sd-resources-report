@@ -45,7 +45,7 @@ export default {
   mounted: function() {
     const Url = 'https://stats4sd.org/api/troves';
     axios
-      .get('https://cors-anywhere.herokuapp.com/' + Url)
+      .get(Url)
 
       .then(res => {
         this.troves = res.data.slice(1, 4);
