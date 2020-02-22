@@ -3,17 +3,21 @@
     <nav id="sidebar">
       <div class="p-4">
         <h1>
-          <a href="/" class="logo">
+          <router-link to="/" class="logo">
             Stats4SD
             <span>Resources Report</span>
-          </a>
+          </router-link>
         </h1>
         <ul class="list-unstyled components mb-5">
           <li class="active">
-            <a href="#"> <span class="fa fa-home mr-3"></span> Home </a>
+            <router-link to="/">
+              <span class="fa fa-home mr-3"></span> Webiste
+            </router-link>
           </li>
           <li>
-            <a href="#"> <span class="fa fa-user mr-3"></span> Resources </a>
+            <router-link to="/resources">
+              <span class="fa fa-user mr-3"></span> Resources
+            </router-link>
           </li>
         </ul>
       </div>

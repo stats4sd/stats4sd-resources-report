@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App.vue';
-import GoogleAnalytics from './components/GoogleAnalytics/GoogleAnalyticsService';
+import GoogleAnalyticsService from './components/GoogleAnalytics/GoogleAnalyticsService';
 import Resources from './components/UI/Resources';
 
 Vue.use(VueRouter);
@@ -9,6 +9,10 @@ const routes = [
   {
     path: '/resources',
     component: Resources
+  },
+  {
+    path: '/',
+    component: GoogleAnalyticsService
   }
 ];
 
