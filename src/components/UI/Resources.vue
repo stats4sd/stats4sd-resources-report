@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Recently Added Resources</h3>
+    <h4>Recently Added Resources</h4>
     <div v-if="resourceLoading" class="text-center">
       <div class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>

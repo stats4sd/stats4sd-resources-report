@@ -3,7 +3,6 @@
     <div class="card mb-2">
       <div class="row no-gutters">
         <div class="col-md-4">
-          ,
           <img
             :src="'https://stats4sd.org/storage/' + resource.cover_image"
             class="card-img"
@@ -14,19 +13,26 @@
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title">{{ resource.title.slice(0, -3) }}</h5>
+            <h5 class="card-title">{{ resource.title.slice(0, -1) }}</h5>
             <p class="card-text">
               {{ resource.description.substring(0, 100) }}...
               <a
                 target="_blank"
                 :href="'https://stats4sd.org/resources/' + resource.id"
-              >Read more</a>
+                >Read more</a
+              >
             </p>
             <p>
-              <small class="text-muted">Added {{ resource.created_at | moment }}</small>
+              <small class="text-muted"
+                >Added {{ resource.created_at | moment }}</small
+              >
             </p>
 
-            <div v-for="r in resources" v-if="r[0] === `/resources/${resource.id}`" :key="r[0]">
+            <div
+              v-for="r in resources"
+              v-if="r[0] === `/resources/${resource.id}`"
+              :key="r[0]"
+            >
               <div class="alert alert-primary" role="alert">
                 <p>
                   Number of Times Viewed:
