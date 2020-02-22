@@ -1,16 +1,23 @@
 <template>
   <div>
-    <button class="btn-primary" @click="printReport">Download Report</button>
+    <button class="btn btn-secondary" @click="printReport">
+      Download Report
+    </button>
     <div id="report">
       <div>
         <header class="Titles">
           <div class="float-right">
-            <select :key="chart1" v-model="chart1" @change="getData">
+            <select
+              :key="chart1"
+              v-model="chart1"
+              class="custom-select"
+              @change="getData"
+            >
               <option disabled value>Please Select One</option>
-              <option>30</option>
-              <option>60</option>
-              <option>90</option>
-              <option>120</option>
+              <option value="30">Last 30 days</option>
+              <option value="60">Last 60 days</option>
+              <option value="90">Last 90 days</option>
+              <option value="120">Last 120 days</option>
             </select>
           </div>
           <h3 class="Titles-main">Sessions Vs Users</h3>
@@ -21,15 +28,20 @@
       <div>
         <header class="Titles">
           <div class="float-right">
-            <select :key="chart3" v-model="chart3" @change="getData">
+            <select
+              :key="chart3"
+              v-model="chart3"
+              class="custom-select"
+              @change="getData"
+            >
               <option disabled value>Please Select One</option>
-              <option>30</option>
-              <option>60</option>
-              <option>90</option>
-              <option>120</option>
+              <option value="30">Last 30 days</option>
+              <option value="60">Last 60 days</option>
+              <option value="90">Last 90 days</option>
+              <option value="120">Last 120 days</option>
             </select>
           </div>
-          <h3 class="Titles-main">Top Countries by Sessions</h3>
+          <h3 class="Titles-main">Top Countries by User Sessions</h3>
           <div class="Titles-sub">Last {{ chart3 }} days</div>
         </header>
         <div id="chart-3-container"></div>
@@ -37,12 +49,17 @@
       <div>
         <header class="Titles">
           <div class="float-right">
-            <select :key="chart2" v-model="chart2" @change="getData">
+            <select
+              :key="chart2"
+              v-model="chart2"
+              class="custom-select"
+              @change="getData"
+            >
               <option disabled value>Please Select One</option>
-              <option>30</option>
-              <option>60</option>
-              <option>90</option>
-              <option>120</option>
+              <option value="30">Last 30 days</option>
+              <option value="60">Last 60 days</option>
+              <option value="90">Last 90 days</option>
+              <option value="120">Last 120 days</option>
             </select>
           </div>
           <h3 class="Titles-main">Top Visted Pages</h3>
