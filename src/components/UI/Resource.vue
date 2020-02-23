@@ -119,13 +119,26 @@ export default {
             //Adding id to the newResources object from GA Data
             newResources.map(function(e, index) {
               e.id = newResources[index][0].slice(11);
+              e.views = newResources[index][1];
+              e.url = newResources[index][0];
             });
 
-            //convert array to object
-            const idResources = { ...newResources };
-            console.log('GAData', idResources);
+            //convert object to array
+            let serverResource = Object.entries(this.resource);
 
-            console.log('Resources', this.resource);
+            let mergedResources = newResources.map((item, i) =>
+              Object.assign({}, item, serverResource[i][0])
+            );
+
+            //merging the 2 resources from different sources
+            /*  const mergedResources = idResources.map((item, i) =>
+              Object.assign({}, item, i.id)
+            );
+*/
+            console.log('GAData', newResources);
+
+            console.log('Resources Array', serverResource);
+            console.log('Merged', mergedResources);
           });
       });
     }
