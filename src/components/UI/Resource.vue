@@ -114,6 +114,15 @@ export default {
           })
           .then(response => {
             this.rows = response.result.rows;
+            const newResources = this.resources;
+
+            //Adding id to the newResources object from GA Data
+            newResources.map(function(e, index) {
+              e.id = newResources[index][0].slice(11);
+            });
+            console.log('GAData', newResources);
+
+            console.log('Resources', this.resource);
           });
       });
     }
