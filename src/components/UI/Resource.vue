@@ -77,12 +77,6 @@ export default {
   },
   created: function() {
     this.getData();
-
-    console.log('created', this.GAResources);
-  },
-  updated: function() {
-    console.log('updated', this.GAResources);
-    console.log('')
   },
   methods: {
     getData: function() {
@@ -123,6 +117,7 @@ export default {
             this.rows = response.result.rows;
             const newResources = this.resources;
 
+            //Attempt to merge the 2 arrays
             //Adding id to the newResources object from GA Data
             newResources.map(function(e, index) {
               e.id = newResources[index][0].slice(11);

@@ -43,19 +43,25 @@ export default {
   },
 
   mounted: function() {
-    const Url = 'https://stats4sd.org/api/troves';
+    //Call to Live API commented out, facing a CORS error currently
+    /*
+    const Url = 'https://stats4sd.org/api/troves'; 
     axios
-      .get('https://cors-anywhere.herokuapp.com/' + Url)
+      .get(Url)
 
       .then(res => {
         this.troves = res.data.slice(1, 4);
         this.resourceLoading = false;
       })
       .catch(err => console.log('Error: ', err));
+
+*/
     // generate mock data (commented code to use with live api)
     setTimeout(() => {
       this.collections = MOCK_DATA.collections.slice(1, 4);
       this.collectionLoading = false;
+      this.troves = MOCK_DATA.troves.slice(1, 4);
+      this.resourceLoading = false;
     }, 2000);
   }
 };
