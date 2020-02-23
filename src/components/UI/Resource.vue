@@ -66,7 +66,8 @@ export default {
   },
   data() {
     return {
-      rows: []
+      rows: [],
+      GAResources: null
     };
   },
   computed: {
@@ -74,8 +75,14 @@ export default {
       return filterGAPageData(this.rows, '/resources/');
     }
   },
-  mounted: function() {
+  created: function() {
     this.getData();
+
+    console.log('created', this.GAResources);
+  },
+  updated: function() {
+    console.log('updated', this.GAResources);
+    console.log('')
   },
   methods: {
     getData: function() {
@@ -123,22 +130,7 @@ export default {
               e.url = newResources[index][0];
             });
 
-            //convert object to array
-            let serverResource = Object.entries(this.resource);
-
-            let mergedResources = newResources.map((item, i) =>
-              Object.assign({}, item, serverResource[i][0])
-            );
-
-            //merging the 2 resources from different sources
-            /*  const mergedResources = idResources.map((item, i) =>
-              Object.assign({}, item, i.id)
-            );
-*/
-            console.log('GAData', newResources);
-
-            console.log('Resources Array', serverResource);
-            console.log('Merged', mergedResources);
+            this.GAResources = newResources;
           });
       });
     }
