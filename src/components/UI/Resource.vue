@@ -120,7 +120,10 @@ export default {
             newResources.map(function(e, index) {
               e.id = newResources[index][0].slice(11);
             });
-            console.log('GAData', newResources);
+
+            //convert array to object
+            const idResources = { ...newResources };
+            console.log('GAData', idResources);
 
             console.log('Resources', this.resource);
           });
