@@ -14,5 +14,4 @@ export default {
 
 <style>
 @import './assets/css/custom.css';
-@import './assets/css/sidebarStyle.css';
 </style>
