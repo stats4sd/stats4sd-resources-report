@@ -2,7 +2,7 @@
   <nav id="sidebar">
     <div class="p-4">
       <h1>
-        <router-link to="/" class="logo" style="font-family: 'Open Sans'; font-weight: bold">
+        <router-link to="/" class="logo">
           Stats4SD
           <span>Resources Report</span>
         </router-link>
@@ -14,7 +14,7 @@
           </router-link>
         </li>
         <li>
-          <router-link to="/resources">
+          <router-link to="/resources" >
             <span class="fa fa-sticky-note mr-3"></span> Resources
           </router-link>
         </li>
