@@ -6,22 +6,14 @@
         <span class="sr-only">Loading...</span>
       </div>
     </div>
-    <Resource
-      v-for="resource in troves"
-      :key="resource.id"
-      :resource="resource"
-    />
+    <Resource v-for="resource in troves" :key="resource.id" :resource="resource" />
     <h3>Recently Added Collections</h3>
     <div v-if="collectionLoading" class="text-center">
       <div class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
       </div>
     </div>
-    <Collection
-      v-for="collection in collections"
-      :key="collection.id"
-      :collection="collection"
-    />
+    <Collection v-for="collection in collections" :key="collection.id" :collection="collection" />
   </div>
 </template>
 <script>
