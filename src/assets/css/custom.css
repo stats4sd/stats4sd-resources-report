@@ -20,15 +20,15 @@
 }
 #sidebar h1 {
   margin-bottom: 20px;
-  font-weight: 700;
-  font-size: 30px;
+  font-weight: 900;
+  font-size: 40px;
 }
 #sidebar h1 .logo {
   color: #fff;
   text-decoration: none;
 }
 #sidebar h1 .logo span {
-  font-size: 14px;
+  font-size: 20px;
   color: #ffffff;
   display: block;
   text-decoration: none;
@@ -37,8 +37,9 @@
   padding: 0;
 }
 #sidebar ul li {
-  font-size: 16px;
+  font-size: 18px;
   text-decoration: none;
+  font-weight: 600;
 }
 #sidebar ul li > ul {
   margin-left: 10px;
@@ -54,6 +55,7 @@
 }
 #sidebar ul li a span {
   color: #ffffff;
+  font-weight: 400;
 }
 #sidebar ul li a:hover {
   color: #fff;
