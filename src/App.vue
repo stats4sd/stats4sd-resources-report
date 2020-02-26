@@ -1,21 +1,17 @@
 <template>
-  <Fragment>
-    <Layout />
-  </Fragment>
+  <Layout />
 </template>
 
 <script>
 import Layout from './components/Layout/Layout';
-import { Fragment } from 'vue-fragment';
 export default {
   name: 'App',
   components: {
-    Layout,
-    Fragment
+    Layout
   }
 };
 </script>
 
 <style>
-@import './assets/css/sidebarStyle.css';
+@import './assets/css/custom.css';
 </style>
