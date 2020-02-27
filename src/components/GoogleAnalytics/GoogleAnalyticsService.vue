@@ -1,16 +1,23 @@
 <template>
   <div>
-    <button class="btn-primary" @click="printReport">Download Report</button>
+    <button class="btn btn-secondary" @click="printReport">
+      Download Report
+    </button>
     <div id="report">
       <div>
         <header class="Titles">
           <div class="float-right">
-            <select :key="chart1" v-model="chart1" @change="getData">
+            <select
+              :key="chart1"
+              v-model="chart1"
+              class="custom-select"
+              @change="getData"
+            >
               <option disabled value>Please Select One</option>
-              <option>30</option>
-              <option>60</option>
-              <option>90</option>
-              <option>120</option>
+              <option value="30">Last 30 days</option>
+              <option value="60">Last 60 days</option>
+              <option value="90">Last 90 days</option>
+              <option value="120">Last 120 days</option>
             </select>
           </div>
           <h3 class="Titles-main">Sessions Vs Users</h3>
@@ -21,15 +28,20 @@
       <div>
         <header class="Titles">
           <div class="float-right">
-            <select :key="chart3" v-model="chart3" @change="getData">
+            <select
+              :key="chart3"
+              v-model="chart3"
+              class="custom-select"
+              @change="getData"
+            >
               <option disabled value>Please Select One</option>
-              <option>30</option>
-              <option>60</option>
-              <option>90</option>
-              <option>120</option>
+              <option value="30">Last 30 days</option>
+              <option value="60">Last 60 days</option>
+              <option value="90">Last 90 days</option>
+              <option value="120">Last 120 days</option>
             </select>
           </div>
-          <h3 class="Titles-main">Top Countries by Sessions</h3>
+          <h3 class="Titles-main">Top Countries by User Sessions</h3>
           <div class="Titles-sub">Last {{ chart3 }} days</div>
         </header>
         <div id="chart-3-container"></div>
@@ -37,12 +49,17 @@
       <div>
         <header class="Titles">
           <div class="float-right">
-            <select :key="chart2" v-model="chart2" @change="getData">
+            <select
+              :key="chart2"
+              v-model="chart2"
+              class="custom-select"
+              @change="getData"
+            >
               <option disabled value>Please Select One</option>
-              <option>30</option>
-              <option>60</option>
-              <option>90</option>
-              <option>120</option>
+              <option value="30">Last 30 days</option>
+              <option value="60">Last 60 days</option>
+              <option value="90">Last 90 days</option>
+              <option value="120">Last 120 days</option>
             </select>
           </div>
           <h3 class="Titles-main">Top Visted Pages</h3>
@@ -63,9 +80,9 @@
             <tbody>
               <tr v-for="row in resources" :key="row[0]">
                 <td>
-                  <a target="_blank" :href="'https://stats4sd.org' + row[0]">
-                    {{ row[0] }}
-                  </a>
+                  <a target="_blank" :href="'https://stats4sd.org' + row[0]">{{
+                    row[0]
+                  }}</a>
                 </td>
                 <td>{{ row[1] }}</td>
               </tr>
@@ -97,6 +114,31 @@ export default {
     }
   },
   mounted: function mounted() {
+    // note, requires google.com/jsapi script in index.html
+    // TODO - check if script already loaded
+    const script = document.createElement('script');
+
+    //check if the google_maps_key is added in env variables
+    if (!process.env.VUE_APP_google_maps_key) {
+      alert(
+        'Maps API key must be defined in .env file. View Instructions.md for more info'
+      );
+      throw new Error('Maps API key be defined in .env file');
+    }
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.VUE_APP_google_maps_key}`;
+    //Before appending script, check if script is not added when compenent re-mounts
+    //to prevent it from being added multiple tines
+    const children = document.getElementsByTagName('head')[0].childNodes;
+    let found = false;
+    for (let i = 0; i < children.length; i++) {
+      if (children[i].src === script.src) {
+        found = true;
+        break;
+      }
+    }
+    if (found == false) {
+      document.getElementsByTagName('head')[0].append(script);
+    }
     this.getData();
   },
   methods: {
@@ -113,8 +155,6 @@ export default {
     getData: function() {
       window.gapi.analytics.ready(async () => {
         const { VUE_APP_client_email, VUE_APP_private_key } = process.env;
-        console.log('Email:', VUE_APP_client_email);
-        console.log('key:', VUE_APP_private_key);
         if (!VUE_APP_client_email && !VUE_APP_private_key) {
           alert(
             'Client email and private key must be defined in .env file. View Instructions.md for more info'
@@ -123,13 +163,10 @@ export default {
             'Client email and private key must be defined in .env file'
           );
         }
-
-        const client = new JWT(
-          VUE_APP_client_email,
-          null,
-          VUE_APP_private_key,
-          ['https://www.googleapis.com/auth/analytics.readonly']
-        );
+        const private_key = VUE_APP_private_key.replace(/\\n/g, '\n');
+        const client = new JWT(VUE_APP_client_email, null, private_key, [
+          'https://www.googleapis.com/auth/analytics.readonly'
+        ]);
 
         const response = await client.getAccessToken();
         const access_token = response.token;
@@ -214,10 +251,9 @@ export default {
           },
           chart: {
             container: 'chart-3-container',
-            type: 'PIE',
+            type: 'GEO',
             options: {
-              width: '100%',
-              pieHole: 4 / 9
+              width: '100%'
             }
           }
         });
@@ -245,12 +281,12 @@ export default {
   flex-direction: column;
   flex-wrap: wrap;
   background-color: #f5f5f5;
-  width: 210mm;
-  min-height: 297mm;
+  width: 100%;
 }
-/*@media screen and (max-width: 768px) {
-  #chart-1-container {
-    max-width: 300px;
+
+@media screen and (max-width: 500px) {
+  #report {
+    width: 100%;
   }
-}*/
+}
 </style>

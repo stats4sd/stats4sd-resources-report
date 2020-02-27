@@ -3,7 +3,6 @@
     <div class="card mb-2">
       <div class="row no-gutters">
         <div class="col-md-4">
-          ,
           <img
             :src="'https://stats4sd.org/storage/' + resource.cover_image"
             class="card-img"
@@ -14,19 +13,26 @@
         </div>
         <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title">{{ resource.title.slice(0, -3) }}</h5>
+            <h5 class="card-title">{{ resource.title.slice(0, -1) }}</h5>
             <p class="card-text">
               {{ resource.description.substring(0, 100) }}...
               <a
                 target="_blank"
                 :href="'https://stats4sd.org/resources/' + resource.id"
-              >Read more</a>
+                >Read more</a
+              >
             </p>
             <p>
-              <small class="text-muted">Added {{ resource.created_at | moment }}</small>
+              <small class="text-muted"
+                >Added {{ resource.created_at | moment }}</small
+              >
             </p>
 
-            <div v-for="r in resources" v-if="r[0] === `/resources/${resource.id}`" :key="r[0]">
+            <div
+              v-for="r in resources"
+              v-if="r[0] === `/resources/${resource.id}`"
+              :key="r[0]"
+            >
               <div class="alert alert-primary" role="alert">
                 <p>
                   Number of Times Viewed:
@@ -60,7 +66,8 @@ export default {
   },
   data() {
     return {
-      rows: []
+      rows: [],
+      GAResources: null
     };
   },
   computed: {
@@ -68,13 +75,14 @@ export default {
       return filterGAPageData(this.rows, '/resources/');
     }
   },
-  mounted: function() {
+  created: function() {
     this.getData();
   },
   methods: {
     getData: function() {
       window.gapi.analytics.ready(async () => {
         const { VUE_APP_client_email, VUE_APP_private_key } = process.env;
+
         if (!VUE_APP_client_email && !VUE_APP_private_key) {
           alert(
             'Client email and private key must be defined in .env file. View Instructions.md for more info'
@@ -83,17 +91,15 @@ export default {
             'Client email and private key must be defined in .env file'
           );
         }
-        const client = new JWT(
-          VUE_APP_client_email,
-          null,
-          VUE_APP_private_key,
-          ['https://www.googleapis.com/auth/analytics.readonly']
-        );
+        const private_key = VUE_APP_private_key.replace(/\\n/g, '\n'); //escape \n on netlify deployment
+
+        const client = new JWT(VUE_APP_client_email, null, private_key, [
+          'https://www.googleapis.com/auth/analytics.readonly'
+        ]);
 
         const response = await client.getAccessToken();
         const access_token = response.token;
 
-        
         /**
          * Authorize the user with an access token obtained server side.
          */
@@ -109,7 +115,17 @@ export default {
           })
           .then(response => {
             this.rows = response.result.rows;
+            const newResources = this.resources;
 
+            //Attempt to merge the 2 arrays
+            //Adding id to the newResources object from GA Data
+            newResources.map(function(e, index) {
+              e.id = newResources[index][0].slice(11);
+              e.views = newResources[index][1];
+              e.url = newResources[index][0];
+            });
+
+            this.GAResources = newResources;
           });
       });
     }

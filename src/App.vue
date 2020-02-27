@@ -1,12 +1,9 @@
 <template>
-  <div id="app">
-    <Layout />
-  </div>
+  <Layout />
 </template>
 
 <script>
 import Layout from './components/Layout/Layout';
-
 export default {
   name: 'App',
   components: {
@@ -15,4 +12,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+@import './assets/css/custom.css';
+</style>
